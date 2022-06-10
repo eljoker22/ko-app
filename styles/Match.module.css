@@ -1,0 +1,9 @@
+.match{
+    display: flex;
+    justify-content: space-between;
+}
+.chat{
+    background: var(--box);
+    width: 23%;
+    
+}
