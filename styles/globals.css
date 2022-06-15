@@ -1,6 +1,7 @@
 :root{
   --background: #07090C;
   --box: #2B2B2B;
+  --back: #413F42;
   --primary: #ff2000;
   --color: azure;
 }
@@ -22,4 +23,131 @@ a {
 
 * {
   box-sizing: border-box;
+}
+/* player video js custom style */
+.vjs-matrix .vjs-big-play-button{
+  width: 80px !important;
+  background: transparent !important;
+  
+}
+.vjs-matrix .vjs-big-play-button .vjs-icon-placeholder::before{
+  position: absolute;
+  content: ' ' !important;
+  left: 50% !important;
+  top: 38% !important;
+  transform: translate(-50%, -50%);
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 50% !important;
+  border: 10px solid var(--primary);
+  animation: live 2s linear infinite;
+  opacity: 0.0;
+}
+@keyframes live{
+  0%{
+    opacity: 0.2;
+  }
+  25%{
+    opacity: 0.6;
+  }
+  50%{
+    opacity: 0.3;
+  }
+  100%{
+    opacity: 0.1;
+  }
+}
+.vjs-matrix .vjs-big-play-button .vjs-icon-placeholder::after{
+  position: absolute;
+  content: url('/play.png') !important;
+  left: 51% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%);
+  
+}
+
+/* emoji picker */
+.emoji-picker-container{
+  position: relative;
+  visibility: hidden;
+  opacity: 0;
+}
+.emoji-picker-container.active{
+  visibility: visible;
+  opacity: 1;
+}
+.emoji-picker-react{
+  width: 100% !important;
+  position: absolute !important;
+  top: -370px !important;
+  background: var(--back) !important;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4) !important;
+  border: 2px solid var(--primary) !important;
+  border-radius: 15px !important;
+}
+.emoji-picker-react .emoji-group:before, aside.emoji-picker-react .content-wrapper:before{
+  display: none !important;
+}
+.emoji-picker-react .active-category-indicator-wrapper .active-category-indicator{
+  background: var(--primary) !important;
+}
+.emoji-picker-react .emoji-scroll-wrapper{
+  overflow-x: hidden;
+}
+.emoji-picker-react .emoji-scroll-wrapper::-webkit-scrollbar{
+  width: 8px;
+  background: transparent !important;
+}
+.emoji-picker-react .emoji-scroll-wrapper::-webkit-scrollbar-thumb{
+  width: 8px;
+  background: var(--primary);
+  border-radius: 20px;
+}
+/* timer count down */
+/* Sets the containers height and width */
+.base-timer {
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+
+/* Removes SVG styling that would hide the time label */
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+/* The SVG path that displays the timer's progress */
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+.base-timer__path-elapsed.red {
+  stroke-width: 7px;
+  stroke: var(--primary);
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+.base-timer__path-remaining {
+  /* Just as thick as the original ring */
+  stroke-width: 7px;
+
+  /* Rounds the line endings to create a seamless circle */
+  stroke-linecap: round;
+
+  /* Makes sure the animation starts at the top of the circle */
+  transform: rotate(90deg);
+  transform-origin: center;
+  
+
+  /* One second aligns with the speed of the countdown timer */
+  transition: 1s linear all;
+
+  /* Allows the ring to change color when the color value updates */
+  stroke: var(--primary);
+}
+
+.base-timer__svg {
+  /* Flips the svg and makes the animation to move left-to-right */
+  transform: scaleX(-1);
 }

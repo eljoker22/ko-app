@@ -2,8 +2,135 @@
     display: flex;
     justify-content: space-between;
 }
+.video_side{
+    width: 75%;
+}
+.video_player{
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--primary);
+}
+.info_match{
+    margin-top: 20px;
+    background: var(--box);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.team{
+    text-align: center;
+}
+.team strong{
+    display: block;
+}
+.timer_cont{
+    display: flex;
+    align-items: center;
+}
+.timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.timer_border{
+    padding: 15px;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
+}
+.timer .num{
+    margin: 0 10px;
+    text-align: center;
+}
+.timer .num strong{
+    display: block;
+    font-size: 20px;
+}
+.timer_head{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+/* chat match */
 .chat{
     background: var(--box);
     width: 23%;
+    border-radius: 15px;
+    overflow: auto;
+    max-height: 670px;
+}
+.chat::-webkit-scrollbar{
+    width: 8px;
+    background: transparent;
+}
+.chat::-webkit-scrollbar-thumb{
+    width: 8px;
+    background: var(--primary);
+    border-radius: 20px;
+}
+.head_chat{
+    text-align: center;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: -20px;
+    width: 100%;
+    background: var(--box);
+}
+
+.head_chat h2{
+    margin: 0 10px;
+    padding: 15px;
+    border-bottom: 2px solid var(--primary);
+
+}
+.form_chat{
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 10px;
+    padding: 20px;
     
+}
+.form_chat input{
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: var(--back);
+    z-index: 3;
+}
+.form_chat .buttons{
+    position: absolute;
+    left: 15px;
+    top: 28%;
+    transform: translateY(-50%);
+    z-index: 4;
+}
+.form_chat .buttons svg{
+    font-size: 30px;
+    cursor: pointer;
+}
+.form_chat .buttons.active svg{
+    color: var(--primary);
+}
+.comments{
+    padding: 20px;
+    min-height: 80%;
+}
+.comment{
+    display: inline-flex;
+    align-items: center;
+    border-radius: 50px;
+    background: var(--back);
+    padding: 10px;
+    padding-left: 15px;
+    margin-bottom: 10px;
+}
+.comment img{
+    width: 40px;
+    margin-left: 10px;
+
 }

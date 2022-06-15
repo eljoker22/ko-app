@@ -1,8 +1,8 @@
 import classes from '../styles/Button.module.css';
 
-export function Button({children}) {
+export function Button({children, type}) {
     return(
-        <button>
+        <button type={type}>
             {children}
         </button>
     )
