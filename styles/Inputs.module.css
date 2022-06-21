@@ -5,5 +5,29 @@
     background: var(--box);
     border: 1px solid var(--primary);
     color: var(--color);
-    font-size: 17px;
+    font-size: 20px;
+}
+.input_form{
+    width: 100%;
+    margin-bottom: 20px;
+}
+.input_pass{
+    position: relative;
+    margin-bottom: 20px;
+    height: 40px;
+}
+.input_pass input{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+.input_pass svg{
+    font-size: 20px;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
