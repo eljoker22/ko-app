@@ -1,17 +1,10 @@
 import classes from '../../styles/Profile.module.css';
-import ava1 from '../../assest/avatars/Guacamole-1.png';
-import ava2 from '../../assest/avatars/No gravity-2.png';
-import ava3 from '../../assest/avatars/Teamwork-5.png';
-import ava4 from '../../assest/avatars/Upstream-1.png';
-import ava5 from '../../assest/avatars/Upstream-4.png';
-import ava6 from '../../assest/avatars/Upstream-6.png';
-import ava7 from '../../assest/avatars/Upstream-7.png';
-import ava8 from '../../assest/avatars/Upstream-8.png';
 import { ButtonForm } from '../../componnet/Buttons';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { parseCookies } from 'nookies';
 import {useRouter} from 'next/router';
+
 
 
 
@@ -21,6 +14,12 @@ function AvatarSelect() {
     const [loading, setLoading] = useState(false);
     const token = parseCookies('token').jwt;
     const router = useRouter();
+
+    useEffect(() => {
+        if (!token) {
+            router.replace('/login');
+        }
+    }, [])
 
     const choeseAvatar = async (e) => {
         e.preventDefault();
@@ -42,8 +41,7 @@ function AvatarSelect() {
             
         }
     }
-    console.log(token);
-    console.log(JSON.stringify( {plan: 'free',} ))
+
     return(
         <div className={classes.avatar_select}>   
             <div className={classes.avatars_box}>

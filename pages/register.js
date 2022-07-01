@@ -8,6 +8,24 @@ import sanitizeHtml from 'sanitize-html';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import nookies from 'nookies';
+
+export async function getServerSideProps(ctx) {
+    const token = nookies.get(ctx).jwt;
+    if (token) {
+        return{
+            redirect: {
+                destination: '/profile',
+                permanent: false
+            }
+        }
+    }
+
+    return{
+        props: {}
+    }
+}
+
 function Register() {
     const [regData, setRegData] = useState({
         username: '',

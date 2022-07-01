@@ -12,6 +12,10 @@
 .btn.full{
     width: 100%;
 }
+.btn.radius{
+    border-radius: 30px;
+    padding: 10px 30px;
+}
 .loader{
     width: 35px;
     height: 35px;

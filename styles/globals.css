@@ -28,7 +28,7 @@ a {
 .vjs-matrix .vjs-big-play-button{
   width: 80px !important;
   background: transparent !important;
-  
+  border: none;
 }
 .vjs-matrix .vjs-big-play-button .vjs-icon-placeholder::before{
   position: absolute;

@@ -9,6 +9,26 @@
     border-radius: 15px;
     overflow: hidden;
     border: 2px solid var(--primary);
+    position: relative;
+}
+.banner_not_allow{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: url('/login-background.jpg');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.banner_not_allow h1{
+    text-align: center;
+}
+.banner_not_allow > div{
+    text-align: center;
 }
 .info_match{
     margin-top: 20px;

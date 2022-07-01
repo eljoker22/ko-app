@@ -7,25 +7,55 @@ import qualitySelector from "videojs-hls-quality-selector";
 import _ from "videojs-contrib-quality-levels";
 import ChatMatch from '../../componnet/ChatMatch';
 import moment from 'moment';
-export async function getServerSideProps() {
-    
-    const res = await fetch(`${process.env.API_URL}/matches/4?populate=thumbnail,logo1,logo2`);
+import nookies from 'nookies';
+import {Button} from '../../componnet/Buttons';
+
+export async function getServerSideProps(ctx) {
+    const { id } = ctx.query;
+    const token = nookies.get(ctx).jwt;
+    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2`);
     const match = await res.json();
+    let notAllow = false;
+
+    if (!match.data?.attributes.free) { // if match not free check access user allow or not
+        const resUser = await fetch(`${process.env.API_URL}/users/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        const user = await resUser.json();
+            if (user?.plan == 'free') { // if user plan free not Allow to access
+                notAllow = true;
+            }else if (user?.plan !== 'free' && user.payment_method === 'paypal') { // if user plan premium && payment method paypal
+                const clintIdAndSecret = btoa('AQFiIarA9Ec2ZegTb-o7CKmDJ6nL3Paw-zfOXbX7aSp9lqnIU8NiNNze1JOm-L5v0RyZ8_X_dRgwzf8f:ENzwbhiH3RdDUVzSKeyK_RV9HPZqn2_4yfa4hWIUmshVjYI9pne_WpaoUqcCU1zOHPMWtxkzvZWp9QAa');
+                const resPaypal = await fetch(`https://api-m.sandbox.paypal.com/v1/billing/subscriptions/${user.subscriptionId}`, {
+                    headers:{
+                        "Content-Type": "application/json",
+                        Authorization: `Basic ${clintIdAndSecret}`
+                    }
+                })
+                const resultPaypal = await resPaypal.json();
+                if (resultPaypal?.status !== 'ACTIVE') { // if subscription status not Active
+                    notAllow = true;
+                }
+            }
+        }
 
     return{
-        props: {match}
+        props: {match, notAllow: notAllow}
     }
 }
 
-function Match(match) {
-    console.log(match.match);
+function Match({match, notAllow}) {
+    console.log(match);
+    console.log(notAllow);
     const videoRef = useRef(null);
     const playerRef = useRef(null);
     const [playerLive, setPlayerLive] = useState(undefined);
     const [timer, setTimer] = useState(null);
     const [matchStatus, setMatchStatus] = useState(null);
 
-    const matchData = match?.match?.data?.attributes;
+    const matchData = match?.data?.attributes;
     const videoJsOptions = {
         autoplay: false,
         controls: true,
@@ -107,6 +137,19 @@ function Match(match) {
             <div className={classes.video_side}>
                 <div className={classes.video_player}>
                     <video poster={`http://localhost:1337${matchData.thumbnail.data.attributes.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
+                    {notAllow && 
+                        <div className={classes.banner_not_allow}>
+                            <div>
+                            <h1>المباراة ليست مجانية يجب ترقية خطتك</h1>
+                            <Link href="/plans">
+                                <a>
+                                    <Button type="button">
+                                    ترقية خطتك
+                                    </Button>
+                                </a>
+                            </Link>
+                            </div>
+                        </div>}
                 </div>
                 <div className={classes.info_match}>
                     <div className={classes.team}>
@@ -148,7 +191,7 @@ function Match(match) {
                     </div>
                 </div>
             </div>
-            <ChatMatch match={match?.match?.data} />
+            <ChatMatch match={match?.data} />
         </div>
     )
 }

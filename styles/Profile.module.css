@@ -29,6 +29,7 @@
     border-radius: 50%;
     margin-left: 15px;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    width: 100px;
 }
 .avatar strong{
     font-size: 30px;
@@ -43,13 +44,50 @@
 .info strong{
     margin-left: 15px;
 }
+.plan_box{
+    padding: 20px;
+    border-radius: 15px;
+    background: var(--box);
+}
+.head_plan{
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.head_plan img{
+    width: 70px;
+    margin-left: 15px;
+}
+.head_plan strong{
+    font-size: 20px;
+}
+.item_plan{
+    margin: 15px 0;
+    padding: 10px 0;
+    background: var(--back);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.item_plan > div{
+    display: inline-flex;
+    align-items: end;
+}
+.item_plan > div.active svg{
+    color: greenyellow;
+    margin-right: 10px;
+}
+.item_plan span{
+    color: #ccc;
+}
 
 /* avatar select page */
 .avatars_box{
     margin: 50px;
     overflow: hidden;
 }
-
 .avatars{
     display: grid;
     grid-template-columns: repeat(4, 1fr);

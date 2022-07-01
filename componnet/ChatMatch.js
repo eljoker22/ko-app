@@ -92,7 +92,7 @@ function ChatMatch({match}) {
                         <div className={classes.comment}>
                         <img src="/user.png" />
                         <div>
-                            {c.comment}
+                            {c.comment.replaceAll('undefined', '')}
                         </div>
                         </div>
                     </div>

@@ -7,6 +7,23 @@ import sanitizeHtml from 'sanitize-html';
 import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { useState } from 'react';
 import Link from 'next/link';
+import nookies from 'nookies';
+
+export async function getServerSideProps(ctx) {
+    const token = nookies.get(ctx).jwt;
+    if (token) {
+        return{
+            redirect: {
+                destination: '/profile',
+                permanent: false
+            }
+        }
+    }
+
+    return{
+        props: {}
+    }
+}
 
 function Login() {
     const [logData, setLogData] = useState({
