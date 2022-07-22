@@ -14,7 +14,7 @@ function Layout({children}) {
     useEffect(() => {
         const getUser = async () => {
             const token = parseCookies('token');
-            const res = await fetch(`http://localhost:1337/api/users/me`, {
+            const res = await fetch(`${process.env.API_URL}/users/me`, {
                 headers: {
                     Authorization: `Bearer ${token.jwt}`
                 }
