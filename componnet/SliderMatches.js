@@ -23,7 +23,7 @@ function SliderMatches({matches}) {
                 navigation
                 >
                     {matches.map((match) => (
-                        <SwiperSlide className={classes.swiperSlide}>
+                        <SwiperSlide key={match.id} className={classes.swiperSlide}>
                             <Link href={`/live/${match.id}`}>
                                 <a>
                                 <div className={classes.match}>

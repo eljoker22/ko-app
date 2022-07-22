@@ -20,7 +20,7 @@ function CardMatch({matches, logoLeague}) {
                         spaceBetween={10}
                         slidesPerView={!isSmallScreen ? 2 : 1}>
                             {matches.map((match) => (
-                                <SwiperSlide>
+                                <SwiperSlide key={match.id}>
                                     <motion.div
                                         initial="hidden"
                                         animate="visible"
@@ -83,6 +83,7 @@ function CardMatch({matches, logoLeague}) {
                     <motion.div layout className={classes.cards}>
                     {matches.map((match) => (
                         <motion.div
+                            key={match.id}
                             initial="hidden"
                             animate="visible"
                             transition={{ ease: "easeOut", duration: 0.5 }}

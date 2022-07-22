@@ -42,6 +42,7 @@ function PlansPage({plans}) {
                 <h3><span>1</span> اختر الخطة</h3>
                 {plans.data.map((plan) => (
                     <div 
+                        key={plan.attributes.name}
                         className={`${classes.plan} ${plan.attributes.name === planSelect ? classes.active : ''}`}
                         onClick={() => setPlanSelect(plan.attributes.name)}>
                         {planSelect === plan.attributes.name ? <ImRadioChecked2 /> : <ImRadioUnchecked /> }
@@ -58,7 +59,8 @@ function PlansPage({plans}) {
             <div className={classes.payment_method}>
                 <h3><span>2</span> اختر وسيلة دفع</h3>
                 {payments.map((payment) => (
-                    <div 
+                    <div
+                        key={payment.name}
                         className={`${classes.method} ${payment.name === paymentSelect ? classes.active : ''}`}
                         onClick={() => setPaymentSelect(payment.name)}
                     >
