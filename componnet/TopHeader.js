@@ -1,6 +1,6 @@
 import classes from '../styles/Header.module.css';
 import {useSelector} from 'react-redux';
-import {AiOutlineHome} from 'react-icons/Ai';
+import {AiOutlineHome} from 'react-icons/ai';
 import {MdOutlineContactSupport} from 'react-icons/md';
 import {RiLogoutCircleRLine} from 'react-icons/ri';
 import {BiUserCircle} from 'react-icons/bi';
