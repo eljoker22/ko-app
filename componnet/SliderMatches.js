@@ -33,7 +33,7 @@ function SliderMatches({matches}) {
                                         <AiOutlineUnlock />
                                     </div>
                                     <img className={classes.icon} src={playIcon.src} />
-                                    <img className={classes.thumbnail} src={`http://localhost:1337${match.attributes?.thumbnail?.data.attributes.url}`} />
+                                    <img className={classes.thumbnail} src={`${match.attributes?.thumbnail?.data.attributes.url}`} />
                                 </div>
                                 </a>
                             </Link>

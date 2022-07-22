@@ -14,21 +14,21 @@ function League({league, matches}) {
         <div>
             <div className={classes.banners}>
                 <div className={classes.cover}>
-                    <img src={`http://localhost:1337${leag.cover?.data.attributes.url}`} />
+                    <img src={`${leag.cover?.data.attributes.url}`} />
                 </div>
                 <div className={classes.banner}>
-                    <img src={`http://localhost:1337${leag.logo?.data.attributes.url}`} />
+                    <img src={`${leag.logo?.data.attributes.url}`} />
                     <strong>{leag.name}</strong>
                     <div className={classes.match}>
                         <div className={classes.team}>
-                            <img src={`http://localhost:1337${matchesL[0]?.attributes.logo1?.data.attributes.url}`} />
+                            <img src={`${matchesL[0]?.attributes.logo1?.data.attributes.url}`} />
                             <strong>{matchesL[0]?.attributes.team1}</strong>
                         </div>
                         <div className={classes.time}>
                             {moment(matchesL[0]?.attributes.time).format('h:mm')}
                         </div>
                         <div className={classes.team}>
-                            <img src={`http://localhost:1337${matchesL[0]?.attributes.logo2?.data.attributes.url}`} />
+                            <img src={`${matchesL[0]?.attributes.logo2?.data.attributes.url}`} />
                             <strong>{matchesL[0]?.attributes.team2}</strong>
                         </div>
                     </div>
@@ -38,7 +38,7 @@ function League({league, matches}) {
                 </div>
             </div>
                 <h2 className={styles.section_title}>المباريات</h2>
-                <CardMatch matches={matchesL} logoLeague={`http://localhost:1337${leag.logo?.data.attributes.url}`} />
+                <CardMatch matches={matchesL} logoLeague={`${leag.logo?.data.attributes.url}`} />
                 <div></div>
         </div>
     )

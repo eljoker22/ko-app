@@ -36,9 +36,9 @@ function LeaguesSlider({leagues}) {
                                 <a>
                                     <div className={classes.leag}>
                                         <div className={classes.overlay}>
-                                        <img  src={`http://localhost:1337${leag.attributes?.logo?.data.attributes.url}`} />
+                                        <img  src={`${leag.attributes?.logo?.data.attributes.url}`} />
                                         </div>
-                                        <img  src={`http://localhost:1337${leag.attributes?.thumbnail?.data.attributes.url}`} />
+                                        <img  src={`${leag.attributes?.thumbnail?.data.attributes.url}`} />
                                     </div>
                                 </a>
                             </Link>

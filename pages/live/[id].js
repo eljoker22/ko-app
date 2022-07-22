@@ -155,7 +155,7 @@ function Match({match, notAllow}) {
         <div className={classes.match}>
             <div className={classes.video_side}>
                 <div className={classes.video_player}>
-                    <video poster={`http://localhost:1337${matchData.thumbnail.data.attributes.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
+                    <video poster={`${matchData.thumbnail.data.attributes.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
                     {notAllow && 
                         <div className={classes.banner_not_allow}>
                             <div>
@@ -173,12 +173,12 @@ function Match({match, notAllow}) {
                 {!smallScreen ? 
                     <div className={classes.cont_info}>
                         <div className={classes.league}>
-                            <img src={`http://localhost:1337${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
+                            <img src={`${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
                             <strong>{match.data.attributes.league.data.attributes.name}</strong>
                         </div>
                         <div className={classes.info_match}>
                             <div className={classes.team}>
-                                    <img src={`http://localhost:1337${matchData.logo1.data.attributes.url}`} />
+                                    <img src={`${matchData.logo1.data.attributes.url}`} />
                                     <strong>{matchData.team1}</strong>
                             </div>
                             <div className={classes.timer_cont}>
@@ -211,7 +211,7 @@ function Match({match, notAllow}) {
                                 </div>
                             </div>
                             <div className={classes.team}>
-                                <img src={`http://localhost:1337${matchData.logo2.data.attributes.url}`} />
+                                <img src={`${matchData.logo2.data.attributes.url}`} />
                                 <strong>{matchData.team2}</strong>
                             </div>
                         </div>
@@ -219,7 +219,7 @@ function Match({match, notAllow}) {
                     : 
                     <div className={classes.cont_info}> 
                         <div className={classes.league}>
-                            <img src={`http://localhost:1337${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
+                            <img src={`${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
                             <strong>{match.data.attributes.league.data.attributes.name}</strong>
                         </div>
                         <div className={classes.info_match}>
@@ -254,14 +254,14 @@ function Match({match, notAllow}) {
                         </div>
                             <div className={classes.cont_team}>
                                 <div className={classes.team}>
-                                        <img src={`http://localhost:1337${matchData.logo1.data.attributes.url}`} />
+                                        <img src={`${matchData.logo1.data.attributes.url}`} />
                                         <strong>{matchData.team1}</strong>
                                 </div>
                                 <div>
                                     <GiAbstract068 />
                                 </div>
                                 <div className={classes.team}>
-                                    <img src={`http://localhost:1337${matchData.logo2.data.attributes.url}`} />
+                                    <img src={`${matchData.logo2.data.attributes.url}`} />
                                     <strong>{matchData.team2}</strong>
                                 </div>
                             </div>

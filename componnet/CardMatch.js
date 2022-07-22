@@ -48,21 +48,21 @@ function CardMatch({matches, logoLeague}) {
                                                     {moment(match.attributes.time).format('h:mm')}
                                                 </div>
                                             </div>
-                                            <img src={`http://localhost:1337${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
+                                            <img src={`${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
                                         </div>
 
                                         <div>
                                             <strong className={classes.title}>{match.attributes.title}</strong>
                                             <div className={classes.logos}>
-                                                <img src={`http://localhost:1337${match.attributes?.logo1?.data.attributes.url}`} />
+                                                <img src={`${match.attributes?.logo1?.data.attributes.url}`} />
                                                     <GiAbstract068 />
-                                                <img src={`http://localhost:1337${match.attributes?.logo2?.data.attributes.url}`} />
+                                                <img src={`${match.attributes?.logo2?.data.attributes.url}`} />
                                             </div>
                                         </div>
                                         
                                         <div className={classes.bottom_card}>
                                             <div className={classes.league_logo}>
-                                            <img src={match.attributes.league ? `http://localhost:1337${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
+                                            <img src={match.attributes.league ? `${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
                                             </div>
                                             <Link href={`/live/${match.id}`}>
                                                 <a>
@@ -109,20 +109,20 @@ function CardMatch({matches, logoLeague}) {
                                         {moment(match.attributes.time).format('h:mm')}
                                     </div>
                                 </div>
-                                <img src={`http://localhost:1337${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
+                                <img src={`${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
                             </div>
                             <div>
                                 <strong className={classes.title}>{match.attributes.title}</strong>
                                 <div className={classes.logos}>
-                                    <img src={`http://localhost:1337${match.attributes?.logo1?.data.attributes.url}`} />
+                                    <img src={`${match.attributes?.logo1?.data.attributes.url}`} />
                                         <GiAbstract068 />
-                                    <img src={`http://localhost:1337${match.attributes?.logo2?.data.attributes.url}`} />
+                                    <img src={`${match.attributes?.logo2?.data.attributes.url}`} />
                                 </div>
                             </div>
 
                             <div className={classes.bottom_card}>
                                 <div className={classes.league_logo}>
-                                    <img src={match.attributes.league ? `http://localhost:1337${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
+                                    <img src={match.attributes.league ? `${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
                                 </div>
                                 <Link href={`/live/${match.id}`}>
                                     <a>
