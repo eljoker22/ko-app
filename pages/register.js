@@ -5,10 +5,13 @@ import {InputForm, InputPass} from '../componnet/Inputs';
 import {ButtonForm} from '../componnet/Buttons';
 import { AlertError } from '../componnet/Alerts';
 import sanitizeHtml from 'sanitize-html';
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import { parseCookies, setCookie } from 'nookies'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../state/actions';
 
 export async function getServerSideProps(ctx) {
     const token = nookies.get(ctx).jwt;
@@ -91,6 +94,7 @@ function Register() {
                     maxAge: 30 * 24 * 60 * 60,
                     path: '/',
                 })
+                dispatch(setUser(result.user));
                 router.push('/profile/avatar');
                 setLoading(false);
             }
@@ -101,6 +105,16 @@ function Register() {
     console.log(parseCookies('token')?.jwt)
     return(
         <div className={classes.login_page}>
+            <div className={classes.back_link}>
+                <Link href="/">
+                    <a>
+                        <div>
+                            <span>الرئيسية</span>
+                            <HiArrowNarrowLeft />
+                        </div>
+                    </a>
+                </Link>
+            </div>
             <div className={classes.form_container}>
                 <img src={Img.src}  alt="live" />
                 <div className={classes.form}>

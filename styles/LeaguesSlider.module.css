@@ -1,0 +1,42 @@
+.leagues_slider{
+    margin: 40px 0;
+}
+
+.leag > img{
+    width: 100%;
+    border-radius: 15px;
+}
+.leag{
+    position: relative;
+    cursor: pointer;
+}
+.leag .overlay{
+    border-radius: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    background-image: linear-gradient(to bottom, rgba(255,32,0,0.3) 20%, rgba(255,32,0,0.7), rgba(255,32,0,1) 70%);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
+}
+.leag:hover .overlay{
+    opacity: 1;
+    visibility: visible;
+}
+.overlay img{
+    position: absolute;
+    width: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+@media (max-width: 768px) {
+    .overlay img{
+        width: 60px;
+    }
+}

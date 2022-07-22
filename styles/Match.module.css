@@ -30,11 +30,14 @@
 .banner_not_allow > div{
     text-align: center;
 }
-.info_match{
-    margin-top: 20px;
+.cont_info{
+    background: var(--box);
     background: var(--box);
     border-radius: 15px;
     padding: 20px;
+    margin-top: 20px;
+}
+.info_match{
     display: flex;
     justify-content: space-between;
 }
@@ -57,6 +60,7 @@
     padding: 15px;
     border: 2px solid var(--primary);
     border-radius: 10px;
+    margin: 0 10px;
 }
 .timer .num{
     margin: 0 10px;
@@ -73,13 +77,24 @@
     margin-bottom: 10px;
     font-weight: 600;
 }
+.league{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.league img{
+    width: 40px;
+    margin-left: 10px;
+}
+
 /* chat match */
 .chat{
     background: var(--box);
     width: 23%;
     border-radius: 15px;
     overflow: auto;
-    max-height: 670px;
+    max-height: 730px;
 }
 .chat::-webkit-scrollbar{
     width: 8px;
@@ -138,7 +153,7 @@
 }
 .comments{
     padding: 20px;
-    min-height: 80%;
+    min-height: 84%;
 }
 .comment{
     display: inline-flex;
@@ -152,5 +167,98 @@
 .comment img{
     width: 40px;
     margin-left: 10px;
+}
+.comment p{
+    margin: 0;
+}
+.comment strong{
+    font-size: 12px;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+.cont_load{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+@media (max-width: 1200px) {
+    .video_side{
+        width: 65%;
+    }
+    .chat{
+        background: var(--box);
+        width: 33%;
+        border-radius: 15px;
+        overflow: auto;
+        max-height: 670px;
+    }
+    .team img{
+        width: 80px;
+    }
+}
 
+@media (max-width: 768px) {
+    .match{
+        display: block;
+        justify-content: unset;
+    }
+    .video_side{
+        width: 100%;
+    }
+    .chat{
+        width: 100%;
+        max-height: 670px;
+        margin-top: 20px;
+    }
+    .timer_border{
+        padding: 10px;
+    }
+    .timer .num strong{
+        display: block;
+        font-size: 16px;
+    }
+    .timer_head{
+        font-size: 16px;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+}
+@media (max-width: 540px) {
+    .team img{
+        width: 60px;
+    }
+}
+@media (max-width: 500px) {
+    .team strong{
+        font-size: 14px;
+    }
+    .team{
+        max-width: 70px;
+    }
+
+}
+@media (max-width: 480px) {
+    .info_match{
+        display: block;
+        justify-content: unset;
+    }
+    .cont_team{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .timer_cont{
+        justify-content: center;
+    }
+    .cont_team svg{
+        font-size: 35px;
+        color: var(--primary);
+    }
+    .timer_border{
+        width: 100%;
+    }
 }

@@ -81,6 +81,7 @@
 }
 .item_plan span{
     color: #ccc;
+    margin-left: 10px;
 }
 
 /* avatar select page */
@@ -124,4 +125,12 @@
 }
 .avatars > div.active svg{
     opacity: 1;
+}
+
+@media (max-width: 700px) {
+    .profile{
+        display: block;
+        grid-template-columns: unset;
+        gap: unset;
+    }
 }

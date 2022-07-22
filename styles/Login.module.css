@@ -11,6 +11,7 @@
 }
 .form_container{
     text-align: center;
+    margin: 0 20px;
 }
 .form{
     margin-top: 30px;
@@ -26,4 +27,20 @@
 .switch a{
     color: var(--primary);
     font-weight: 700;
+}
+.back_link{
+    position: fixed;
+    right: 40px;
+    top: 20px;
+}
+.back_link div{
+    display: flex;
+    align-items: center;
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: 600;
+}
+.back_link div svg {
+    margin-right: 5px;
+    font-size: 20px;
 }

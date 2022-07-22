@@ -56,3 +56,14 @@
     color: #333;
     font-size: 25px;
 }
+
+@media (max-width: 550px) {
+    .plans_page{
+        width: 97%;
+    }
+    .price{
+        min-width: 74px;
+        white-space: nowrap;
+        margin-right: 10px;
+    }
+}

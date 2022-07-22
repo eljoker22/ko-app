@@ -8,6 +8,10 @@ import { parseCookies, setCookie, destroyCookie } from 'nookies'
 import { useState } from 'react';
 import Link from 'next/link';
 import nookies from 'nookies';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../state/actions';
 
 export async function getServerSideProps(ctx) {
     const token = nookies.get(ctx).jwt;
@@ -32,7 +36,9 @@ function Login() {
     });
     const [err, setErr] = useState(null);
     const [loading, setLoading] = useState(false); 
-    
+    const router = useRouter();
+    const dispatch = useDispatch();
+
     const handleLogin = async (e) => {
         e.preventDefault();
         if (logData.identifier.length === 0 || logData.password.length === 0) {
@@ -64,6 +70,8 @@ function Login() {
                     path: '/',
                 })
                 setLoading(false);
+                dispatch(setUser(result.user));
+                router.replace('/');
                 console.log('done !!');
             }
             console.log(result);
@@ -73,6 +81,16 @@ function Login() {
 
     return(
         <div className={classes.login_page}>
+            <div className={classes.back_link}>
+                <Link href="/">
+                    <a>
+                        <div>
+                            <span>الرئيسية</span>
+                            <HiArrowNarrowLeft />
+                        </div>
+                    </a>
+                </Link>
+            </div>
             <div className={classes.form_container}>
                 <img src={Img.src}  alt="live" />
                 <div className={classes.form}>

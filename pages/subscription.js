@@ -50,7 +50,7 @@ function PlansPage({plans}) {
                             <p>{`${plan.attributes.no_ads ? 'بدون اعلانات' : 'يوجد اعلانات'} , ${plan.attributes.access ? 'وصول لجميع المباربات' : 'وصول للمباريات المجانية فقط'}`}</p>
                         </div>
                         <div>
-                            <span>{`${plan.attributes.price}EGP/${plan.attributes.period}`}</span>
+                            <span className={classes.price}>{`${plan.attributes.price}EGP/${plan.attributes.period}`}</span>
                         </div>
                     </div>
                 ))}

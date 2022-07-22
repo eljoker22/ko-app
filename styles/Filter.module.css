@@ -1,0 +1,39 @@
+.filter_cont{
+    text-align: center;
+}
+.filter{
+    margin: 0 auto 40px;
+    background: var(--box);
+    padding: 10px;
+    display: inline-flex;
+    border-radius: 50px;
+    position: relative;
+}
+.marker{
+    position: absolute;
+    top: 10px;
+    width: 103px;
+    background: var(--primary);
+    border-radius: 50px;
+    left: 10px;
+    bottom: 10px;
+    z-index: 1;
+    transition: .5s ease-in-out;
+}
+.filter > div{
+    padding: 10px;
+    border-radius: 50px;
+    margin-left: 10px;
+    z-index: 2;
+    cursor: pointer;
+    font-weight: 600;
+}
+.filter > div:last-child{
+    margin-left: 0;
+}
+@media (max-width: 540px){
+    .filter > div{
+        padding: 8px;
+        font-size: 14px;
+    }
+}

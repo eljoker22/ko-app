@@ -9,21 +9,34 @@ import ChatMatch from '../../componnet/ChatMatch';
 import moment from 'moment';
 import nookies from 'nookies';
 import {Button} from '../../componnet/Buttons';
+import {GiAbstract068} from 'react-icons/gi';
+import { useSelector } from 'react-redux';
+import {useMediaQuery} from 'react-responsive';
 
 export async function getServerSideProps(ctx) {
     const { id } = ctx.query;
     const token = nookies.get(ctx).jwt;
-    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2`);
+    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`);
     const match = await res.json();
+    const resUser = await fetch(`${process.env.API_URL}/users/me`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    const user = await resUser.json();
     let notAllow = false;
 
-    if (!match.data?.attributes.free) { // if match not free check access user allow or not
-        const resUser = await fetch(`${process.env.API_URL}/users/me`, {
-            headers: {
-                Authorization: `Bearer ${token}`
+    if (user.error) {
+        return{
+            redirect: {
+                destination: '/login',
+                permanent: false,
             }
-        })
-        const user = await resUser.json();
+        }
+    }
+
+    if (!match.data?.attributes.free) { // if match not free check access user allow or not
+
             if (user?.plan == 'free') { // if user plan free not Allow to access
                 notAllow = true;
             }else if (user?.plan !== 'free' && user.payment_method === 'paypal') { // if user plan premium && payment method paypal
@@ -46,14 +59,18 @@ export async function getServerSideProps(ctx) {
     }
 }
 
+
 function Match({match, notAllow}) {
-    console.log(match);
-    console.log(notAllow);
+    const u = useSelector(state => state.user);
+    
+    console.log('user', u);
+
     const videoRef = useRef(null);
     const playerRef = useRef(null);
     const [playerLive, setPlayerLive] = useState(undefined);
     const [timer, setTimer] = useState(null);
-    const [matchStatus, setMatchStatus] = useState(null);
+    const [matchStatus, setMatchStatus] = useState('wait');
+    const smallScreen = useMediaQuery({ query: '(max-width: 480px)' });
 
     const matchData = match?.data?.attributes;
     const videoJsOptions = {
@@ -132,6 +149,8 @@ function Match({match, notAllow}) {
         setInterval(updateClock, 1000);
     }, [])
 
+    console.log(match);
+    
     return(
         <div className={classes.match}>
             <div className={classes.video_side}>
@@ -141,7 +160,7 @@ function Match({match, notAllow}) {
                         <div className={classes.banner_not_allow}>
                             <div>
                             <h1>المباراة ليست مجانية يجب ترقية خطتك</h1>
-                            <Link href="/plans">
+                            <Link href="/subscription">
                                 <a>
                                     <Button type="button">
                                     ترقية خطتك
@@ -151,45 +170,105 @@ function Match({match, notAllow}) {
                             </div>
                         </div>}
                 </div>
-                <div className={classes.info_match}>
-                    <div className={classes.team}>
-                            <img src={`http://localhost:1337${matchData.logo1.data.attributes.url}`} />
-                            <strong>{matchData.team1}</strong>
-                    </div>
-                    <div className={classes.timer_cont}>
-                        <div className={classes.timer_border}>
-                            <p className={classes.timer_head}>{moment(matchData?.date).format('l')} {moment(matchData?.date).format('LT')}</p>
-                            <div className={classes.timer}>
-                                {matchStatus === 'wait' ? 
-                                <>
-                                    <div className={classes.num}>
-                                    <span>يوم</span>
-                                    <strong>{timer?.days}</strong>
+                {!smallScreen ? 
+                    <div className={classes.cont_info}>
+                        <div className={classes.league}>
+                            <img src={`http://localhost:1337${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
+                            <strong>{match.data.attributes.league.data.attributes.name}</strong>
+                        </div>
+                        <div className={classes.info_match}>
+                            <div className={classes.team}>
+                                    <img src={`http://localhost:1337${matchData.logo1.data.attributes.url}`} />
+                                    <strong>{matchData.team1}</strong>
+                            </div>
+                            <div className={classes.timer_cont}>
+                                <div className={classes.timer_border}>
+                                    <p className={classes.timer_head}>{moment(matchData?.date).format('l')} {moment(matchData?.date).format('LT')}</p>
+                                    <div className={classes.timer}>
+                                        {matchStatus === 'wait' ? 
+                                        <>
+                                            <div className={classes.num}>
+                                            <span>يوم</span>
+                                            <strong>{timer?.days}</strong>
+                                            </div>
+                                            <div className={classes.num}>
+                                                <span>ساعة</span>
+                                                <strong>{timer?.hours}</strong>
+                                            </div>
+                                            <div className={classes.num}>
+                                                <span>دقيقة</span>
+                                                <strong>{timer?.minutes}</strong>
+                                            </div>
+                                            <div className={classes.num}>
+                                                <span>ثانية</span>
+                                                <strong>{timer?.seconds}</strong>
+                                            </div>
+                                        </>
+                                        : 
+                                            <strong>{matchStatus === 'now' ? 'مباشر' : 'انتهت'}</strong>
+                                        }
                                     </div>
-                                    <div className={classes.num}>
-                                        <span>ساعة</span>
-                                        <strong>{timer?.hours}</strong>
-                                    </div>
-                                    <div className={classes.num}>
-                                        <span>دقيقة</span>
-                                        <strong>{timer?.minutes}</strong>
-                                    </div>
-                                    <div className={classes.num}>
-                                        <span>ثانية</span>
-                                        <strong>{timer?.seconds}</strong>
-                                    </div>
-                                </>
-                                : 
-                                    <strong>{matchStatus === 'now' ? 'مباشر' : 'انتهت'}</strong>
-                                }
+                                </div>
+                            </div>
+                            <div className={classes.team}>
+                                <img src={`http://localhost:1337${matchData.logo2.data.attributes.url}`} />
+                                <strong>{matchData.team2}</strong>
                             </div>
                         </div>
                     </div>
-                    <div className={classes.team}>
-                        <img src={`http://localhost:1337${matchData.logo2.data.attributes.url}`} />
-                        <strong>{matchData.team2}</strong>
+                    : 
+                    <div className={classes.cont_info}> 
+                        <div className={classes.league}>
+                            <img src={`http://localhost:1337${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
+                            <strong>{match.data.attributes.league.data.attributes.name}</strong>
+                        </div>
+                        <div className={classes.info_match}>
+                            <div className={classes.timer_cont}>
+                            <div className={classes.timer_border}>
+                                <p className={classes.timer_head}>{moment(matchData?.date).format('l')} {moment(matchData?.date).format('LT')}</p>
+                                <div className={classes.timer}>
+                                    {matchStatus === 'wait' ? 
+                                    <>
+                                        <div className={classes.num}>
+                                        <span>يوم</span>
+                                        <strong>{timer?.days}</strong>
+                                        </div>
+                                        <div className={classes.num}>
+                                            <span>ساعة</span>
+                                            <strong>{timer?.hours}</strong>
+                                        </div>
+                                        <div className={classes.num}>
+                                            <span>دقيقة</span>
+                                            <strong>{timer?.minutes}</strong>
+                                        </div>
+                                        <div className={classes.num}>
+                                            <span>ثانية</span>
+                                            <strong>{timer?.seconds}</strong>
+                                        </div>
+                                    </>
+                                    : 
+                                        <strong>{matchStatus === 'now' ? 'مباشر' : 'انتهت'}</strong>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                            <div className={classes.cont_team}>
+                                <div className={classes.team}>
+                                        <img src={`http://localhost:1337${matchData.logo1.data.attributes.url}`} />
+                                        <strong>{matchData.team1}</strong>
+                                </div>
+                                <div>
+                                    <GiAbstract068 />
+                                </div>
+                                <div className={classes.team}>
+                                    <img src={`http://localhost:1337${matchData.logo2.data.attributes.url}`} />
+                                    <strong>{matchData.team2}</strong>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                </div>
+                    }
             </div>
             <ChatMatch match={match?.data} />
         </div>

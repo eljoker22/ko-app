@@ -19,7 +19,7 @@ export async function getServerSideProps(ctx) {
     const planPeriod = user.plan === 'free' ? 'دائما' : user.plan === 'monthly' ? 'شهريا' : 'سنويا';
     const resPlan = await fetch(`${process.env.API_URL}/plans?filters[period][$eq]=${planPeriod}`);
     const plan = await resPlan.json();
-    if (!user) {
+    if (user.error) {
         return{
             redirect: {
                 destination: '/login',
@@ -58,7 +58,7 @@ function Profile({user, plan}) {
                     <div className={classes.info}>
                         <h2>معلومات الحساب</h2>
                         <div>
-                            <strong>البريد الالكترونى :</strong>
+                            <strong>البريد الالكترونى:</strong>
                             <span>{user.email}</span>
                         </div>
                         <div>
@@ -76,19 +76,19 @@ function Profile({user, plan}) {
                     <div className={classes.plan_box}>
                         <div className={classes.head_plan}>
                             <img src="/play.png" />
-                            <strong>الخطة الشهرية</strong>
+                            <strong>{plan.data[0].attributes.name}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>الوصول</span>
-                            <strong>الوصول لكافة المباريات</strong>
+                            <strong>{plan.data[0].attributes.access ? 'الوصول لكافة المباريات' : 'الوصول للمباريات المجانية'}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>الاعلانات</span>
-                            <strong>لاتوجد اعلانات</strong>
+                            <strong>{plan.data[0].attributes.no_ads ? 'لاتوجد اعلانات' : 'توجد اعلانات'}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>السعر</span>
-                            <strong>120EGP/سنويا</strong>
+                            <strong>{`${plan.data[0].attributes.price}EGP/${plan.data[0].attributes.period}`}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>حالة الأشتراك</span>
