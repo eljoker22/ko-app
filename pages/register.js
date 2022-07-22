@@ -61,7 +61,7 @@ function Register() {
             setErr('كلمة المرور');
         }else{
             setLoading(true);
-            const res = await fetch(`${process.env.API_URL}/auth/local/register`, {
+            const res = await fetch(`https://ko-app-sports.herokuapp.com/api/auth/local/register`, {
                 method: 'post',
                 headers: {
                     'Accept' : 'application/json',

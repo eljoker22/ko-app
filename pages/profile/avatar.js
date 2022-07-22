@@ -25,7 +25,7 @@ function AvatarSelect() {
         e.preventDefault();
         if (avatarSelect) {
             setLoading(true);
-            const res = await fetch('http://localhost:1337/api/user/updateLoggedInUser', {
+            const res = await fetch('https://ko-app-sports.herokuapp.com/api/user/updateLoggedInUser', {
                 method: 'PUT',
                 headers: {
                     'Accept' : 'application/json',

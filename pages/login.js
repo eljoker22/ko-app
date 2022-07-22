@@ -45,7 +45,7 @@ function Login() {
             setErr('يجب ملأ الحقول');
         }else{
             setLoading(true);
-            const res = await fetch(`${process.env.API_URL}/auth/local`, {
+            const res = await fetch(`https://ko-app-sports.herokuapp.com/api/auth/local`, {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
