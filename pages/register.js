@@ -61,7 +61,7 @@ function Register() {
             setErr('كلمة المرور');
         }else{
             setLoading(true);
-            const res = await fetch('http://localhost:1337/api/auth/local/register', {
+            const res = await fetch(`${process.env.API_URL}/auth/local/register`, {
                 method: 'post',
                 headers: {
                     'Accept' : 'application/json',
