@@ -15,6 +15,7 @@ function Layout({children}) {
         const getUser = async () => {
             const token = parseCookies('token');
             const res = await fetch(`${process.env.API_URL}/users/me`, {
+                method: 'get',
                 headers: {
                     Authorization: `Bearer ${token.jwt}`
                 }

@@ -16,9 +16,12 @@ import {useMediaQuery} from 'react-responsive';
 export async function getServerSideProps(ctx) {
     const { id } = ctx.query;
     const token = nookies.get(ctx).jwt;
-    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`);
+    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`, {
+        method: 'get',
+    });
     const match = await res.json();
     const resUser = await fetch(`${process.env.API_URL}/users/me`, {
+        method: 'get',
         headers: {
             Authorization: `Bearer ${token}`
         }
