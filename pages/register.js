@@ -40,6 +40,7 @@ function Register() {
     const [err, setErr] = useState(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const registerAuth = async (e) => {
         e.preventDefault();
