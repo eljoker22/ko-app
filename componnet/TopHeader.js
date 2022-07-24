@@ -22,13 +22,14 @@ function TopHeader({setOpenMenu, openMenu}) {
     const router = useRouter();
     const token = parseCookies('token');
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
 
         useEffect(() => {
             setOpenUserMenu(false);
         }, [router.pathname]);
 
         useEffect(() => {
-
+            setLoading(false);
         }, [])
 
         console.log(token);
@@ -50,38 +51,40 @@ function TopHeader({setOpenMenu, openMenu}) {
             <div className={classes.user}>
                 <BsChatDots />
                 <RiNotification2Line />
-                {user ? 
-                <>
-                <img src={`/avatars/${user?.avatar}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
-                <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
-                    <div className={classes.link_user}>
-                            <img src={`/avatars/${user?.avatar}`} />
-                            <div>
-                            <strong>{user?.username}</strong>
-                            </div>
-                    </div>
-                    <ul>
-                        <Link href="/profile"><a>
-                        <li><BiUserCircle /><span>حسابي</span></li>
-                        </a></Link>
-                        <Link href="/"><a>
-                        <li><AiOutlineHome /><span>الرئيسية</span></li>
-                        </a></Link>
-                        <Link href="/"><a>
-                        <li><MdOutlineContactSupport /><span>المساعدة</span></li>
-                        </a></Link>
-                        
-                        <li onClick={logout} className={classes.logout}><RiLogoutCircleRLine /><span>تسجيل الخروج</span></li>
-                    </ul>
-                </div> 
-                </>
-                : 
-                <Link href="/login">
-                    <a>
-                        <Button>تسجيل الدخول</Button>
-                    </a>
-                </Link>
-                }
+                {!loading ? 
+                    user ? 
+                    <>
+                    <img src={`/avatars/${user?.avatar}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
+                    <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
+                        <div className={classes.link_user}>
+                                <img src={`/avatars/${user?.avatar}`} />
+                                <div>
+                                <strong>{user?.username}</strong>
+                                </div>
+                        </div>
+                        <ul>
+                            <Link href="/profile"><a>
+                            <li><BiUserCircle /><span>حسابي</span></li>
+                            </a></Link>
+                            <Link href="/"><a>
+                            <li><AiOutlineHome /><span>الرئيسية</span></li>
+                            </a></Link>
+                            <Link href="/"><a>
+                            <li><MdOutlineContactSupport /><span>المساعدة</span></li>
+                            </a></Link>
+                            
+                            <li onClick={logout} className={classes.logout}><RiLogoutCircleRLine /><span>تسجيل الخروج</span></li>
+                        </ul>
+                    </div> 
+                    </>
+                    : 
+                    <Link href="/login">
+                        <a>
+                            <Button>تسجيل الدخول</Button>
+                        </a>
+                    </Link>
+                    
+                    : ''}
             </div>
         </header>
     )
