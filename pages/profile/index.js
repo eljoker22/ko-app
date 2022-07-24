@@ -8,7 +8,7 @@ import Link from 'next/link';
 export async function getServerSideProps(ctx) {
 
     const token = nookies.get(ctx);
-    const res = await fetch(`${process.env.API_URL}/users/me`, {
+    const res = await fetch(`https://ko-app-sports.herokuapp.com/api/users/me`, {
         headers: {
             Authorization: `Bearer ${token.jwt}`
         }
@@ -76,19 +76,19 @@ function Profile({user, plan}) {
                     <div className={classes.plan_box}>
                         <div className={classes.head_plan}>
                             <img src="/play.png" />
-                            <strong>{plan.data[0].attributes.name}</strong>
+                            <strong>{plan.data[0]?.attributes.name}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>الوصول</span>
-                            <strong>{plan.data[0].attributes.access ? 'الوصول لكافة المباريات' : 'الوصول للمباريات المجانية'}</strong>
+                            <strong>{plan.data[0]?.attributes.access ? 'الوصول لكافة المباريات' : 'الوصول للمباريات المجانية'}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>الاعلانات</span>
-                            <strong>{plan.data[0].attributes.no_ads ? 'لاتوجد اعلانات' : 'توجد اعلانات'}</strong>
+                            <strong>{plan.data[0]?.attributes.no_ads ? 'لاتوجد اعلانات' : 'توجد اعلانات'}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>السعر</span>
-                            <strong>{`${plan.data[0].attributes.price}EGP/${plan.data[0].attributes.period}`}</strong>
+                            <strong>{`${plan.data[0]?.attributes.price}EGP/${plan.data[0]?.attributes.period}`}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>حالة الأشتراك</span>

@@ -36,9 +36,9 @@ function TopHeader({setOpenMenu, openMenu}) {
         const logout = () => {
             destroyCookie(null, 'jwt');
             dispatch(setUser(null));
-            setInterval(() => router.reload(), 1000);
+            setTimeout(() => router.reload(), 1000);
         }
-        console.log('redux' ,user)
+        console.log('redux' ,user);
     return(
         <header className={classes.top_header}>
             <div onClick={() => setOpenMenu(false)} className={`${classes.overlay} ${openMenu ? classes.active : ''}`}></div>

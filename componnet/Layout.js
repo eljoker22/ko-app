@@ -14,7 +14,7 @@ function Layout({children}) {
     useEffect(() => {
         const getUser = async () => {
             const token = parseCookies('token');
-            const res = await fetch(`${process.env.API_URL}/users/me`, {
+            const res = await fetch(`https://ko-app-sports.herokuapp.com/api/users/me`, {
                 method: 'get',
                 headers: {
                     Authorization: `Bearer ${token.jwt}`
