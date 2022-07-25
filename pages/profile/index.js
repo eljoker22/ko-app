@@ -99,7 +99,7 @@ function Profile({user, plan}) {
                             <BsFillCheckCircleFill />
                             </div>
                         </div>
-                        <Link href="/plans">
+                        <Link href="/subscription">
                             <a>
                                 <ButtonFullWidth>
                                     تغيير

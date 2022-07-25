@@ -57,7 +57,7 @@ function TopHeader({setOpenMenu, openMenu}) {
                     <img src={`/avatars/${user?.avatar}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
                     <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
                         <div className={classes.link_user}>
-                                <img src={`/avatars/${user?.avatar}`} />
+                                <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} />
                                 <div>
                                 <strong>{user?.username}</strong>
                                 </div>
