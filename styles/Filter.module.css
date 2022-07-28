@@ -37,3 +37,15 @@
         font-size: 14px;
     }
 }
+@media (max-width: 475px){
+    .filter > div{
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+@media (max-width: 432px){
+    .filter > div{
+        padding: 6px;
+        font-size: 10px;
+    }
+}

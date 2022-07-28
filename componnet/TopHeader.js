@@ -40,12 +40,23 @@ function TopHeader({setOpenMenu, openMenu}) {
             setTimeout(() => router.reload(), 1000);
         }
         console.log('redux' ,user);
+
+        const sendTest = () => {
+            fetch('/api/send', {
+                method: 'post',
+                body: JSON.stringify({
+                    msg: 'test'
+                })
+            }).then(res => console.log(res))
+            
+        }
+
     return(
         <header className={classes.top_header}>
             <div onClick={() => setOpenMenu(false)} className={`${classes.overlay} ${openMenu ? classes.active : ''}`}></div>
             <div className={classes.side_right}>
                 <RiMenu4Fill className={classes.bars} onClick={() => setOpenMenu(true)} />
-                header                    
+                header                   
             </div>
             
             <div className={classes.user}>

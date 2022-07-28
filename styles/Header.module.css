@@ -149,3 +149,14 @@
         visibility: visible;
     }
 }
+@media (max-width: 450px) {
+    .user > svg{
+        font-size: 22px;
+        margin-left: 15px;
+    }
+    .user  button{
+        font-size: 15px;
+        padding: 8px 12px;
+    }
+    
+}

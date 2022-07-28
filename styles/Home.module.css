@@ -74,4 +74,48 @@
     padding: 20px;
     padding-right: 20px;
   }
+  .timer{
+    bottom: 20px;
+    right: 15px;
+  }
+  .num{
+    width: 60px;
+    height: 60px;
+  }
+  .num strong{
+    font-size: 18px;
+  }
+}
+@media (max-width: 560px) {
+  .timer{
+    bottom: 20px;
+    right: 15px;
+  }
+  .num{
+    width: 50px;
+    height: 50px;
+  }
+  .num strong{
+    font-size: 16px;
+  }
+  .num span{
+    font-size: 14px;
+  }
+}
+@media (max-width: 450px) {
+  .timer{
+    bottom: 20px;
+    right: 15px;
+  }
+  .num{
+    width: 45px;
+    height: 45px;
+    margin-left: 8px;
+  }
+  .num strong{
+    font-size: 14px;
+  }
+  .num span{
+    font-size: 13px;
+  }
 }

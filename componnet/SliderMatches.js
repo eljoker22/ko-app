@@ -8,18 +8,17 @@ import playIcon from '../assest/play.png';
 import {AiOutlineUnlock} from 'react-icons/ai';
 import Link from 'next/link';
 import { useRef } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 
 function SliderMatches({matches}) {
-    const swiper = useSwiper();
-    const nextRefM = useRef(null);
-    const prevRefM = useRef(null);
+    const smallScreen = useMediaQuery({ query:  '(max-width: 450px)'});
     return(
         <div>
             <Swiper 
                 modules={[Navigation]}
                 spaceBetween={20}
-                slidesPerView={2}
+                slidesPerView={!smallScreen ? 2 : 1}
                 navigation
                 >
                     {matches.map((match) => (

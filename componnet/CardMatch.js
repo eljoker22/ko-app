@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 function CardMatch({matches, logoLeague}) {
     const isMobScreen = useMediaQuery({ query: '(max-width: 768px)' });
-    const isSmallScreen = useMediaQuery({ query: '(max-width: 390px)' });
+    const isSmallScreen = useMediaQuery({ query: '(max-width: 412px)' });
 
     return(
         <>
