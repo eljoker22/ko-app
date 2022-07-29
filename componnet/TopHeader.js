@@ -31,8 +31,9 @@ function TopHeader({setOpenMenu, openMenu}) {
 
         useEffect(() => {
             setLoading(false);
-            setUserData(token.jwt ? user : 'notUser');
-        }, [])
+            setUserData(token.jwt ? 'userExist' : 'userNotExist');
+
+        }, [user])
 
         console.log(token);
         
@@ -41,6 +42,7 @@ function TopHeader({setOpenMenu, openMenu}) {
             dispatch(setUser(null));
             setTimeout(() => router.reload(), 1000);
         }
+
         console.log('redux' ,user);
 
         const sendTest = () => {
@@ -65,7 +67,7 @@ function TopHeader({setOpenMenu, openMenu}) {
                 <BsChatDots />
                 <RiNotification2Line />
 
-                    {userData && userData !== 'notUser' ? 
+                    {userData === 'userExist' && user ? 
                     <>
                     <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
                     <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
@@ -90,7 +92,7 @@ function TopHeader({setOpenMenu, openMenu}) {
                         </ul>
                     </div> 
                     </>
-                    : userData === 'notUser' ?
+                    : userData === 'userNotExist' ?
                     <Link href="/login">
                         <a>
                             <Button>تسجيل الدخول</Button>

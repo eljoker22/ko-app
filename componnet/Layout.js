@@ -21,7 +21,7 @@ function Layout({children}) {
                 }
             }) 
             const user = await res.json();
-            !user.error ?  dispatch(setUser(user)) : ''
+            !user?.error ?  dispatch(setUser(user)) : ''
         }
         getUser();
     }, [])
