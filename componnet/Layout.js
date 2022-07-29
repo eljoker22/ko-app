@@ -37,7 +37,7 @@ function Layout({children}) {
             </main>
             :
             <main className={classes.container}>
-                <Header openMenu={openMenu} />
+                <Header openMenu={openMenu} setOpenMenu={setOpenMenu} />
                 <TopHeader setOpenMenu={setOpenMenu} openMenu={openMenu} />
                 {children}
             </main>

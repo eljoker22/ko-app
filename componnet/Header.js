@@ -6,7 +6,13 @@ import {MdOutlineContactSupport} from 'react-icons/md';
 import {BiUserCircle} from 'react-icons/bi';
 import {RiBoxingLine} from 'react-icons/ri';
 import {SiUfc} from 'react-icons/si';
-function Header({openMenu}) {
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+function Header({openMenu, setOpenMenu}) {
+    const router = useRouter();
+    useEffect(() => {
+        setOpenMenu(false);
+    }, [router.pathname])
     return(
         <header className={`${classes.header} ${openMenu ? classes.active : ''}`}>
             <h1 style={{color: 'var(--primary)'}}>KORA SPORTS</h1>
