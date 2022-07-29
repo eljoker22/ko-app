@@ -62,9 +62,8 @@ function TopHeader({setOpenMenu, openMenu}) {
             <div className={classes.user}>
                 <BsChatDots />
                 <RiNotification2Line />
-                {!loading ? 
-                
-                    user ? 
+
+                    {user ? 
                     <>
                     <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
                     <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
@@ -96,8 +95,7 @@ function TopHeader({setOpenMenu, openMenu}) {
                         </a>
                     </Link>
                     : ''
-
-                : ''}
+                    }
             </div>
         </header>
     )
