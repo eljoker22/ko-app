@@ -63,9 +63,10 @@ function TopHeader({setOpenMenu, openMenu}) {
                 <BsChatDots />
                 <RiNotification2Line />
                 {!loading ? 
+                
                     user ? 
                     <>
-                    <img src={`/avatars/${user?.avatar}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
+                    <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
                     <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
                         <div className={classes.link_user}>
                                 <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} />
@@ -88,14 +89,15 @@ function TopHeader({setOpenMenu, openMenu}) {
                         </ul>
                     </div> 
                     </>
-                    : 
+                    : !loading && !user ?
                     <Link href="/login">
                         <a>
                             <Button>تسجيل الدخول</Button>
                         </a>
                     </Link>
-                    
-                    : ''}
+                    : ''
+
+                : ''}
             </div>
         </header>
     )
