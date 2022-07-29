@@ -19,6 +19,7 @@ import { setUser } from '../state/actions';
 function TopHeader({setOpenMenu, openMenu}) {
     const [openUserMenu, setOpenUserMenu] = useState(false);
     const user = useSelector(state => state.user);
+    const [userData, setUserData] = useState(null); 
     const router = useRouter();
     const token = parseCookies('token');
     const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function TopHeader({setOpenMenu, openMenu}) {
 
         useEffect(() => {
             setLoading(false);
+            setUserData(user ? user : 'notUser');
         }, [])
 
         console.log(token);
@@ -63,7 +65,7 @@ function TopHeader({setOpenMenu, openMenu}) {
                 <BsChatDots />
                 <RiNotification2Line />
 
-                    {user ? 
+                    {userData && userData !== 'notUser' ? 
                     <>
                     <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
                     <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
@@ -88,7 +90,7 @@ function TopHeader({setOpenMenu, openMenu}) {
                         </ul>
                     </div> 
                     </>
-                    : !loading && !user ?
+                    : userData == 'notUser' ?
                     <Link href="/login">
                         <a>
                             <Button>تسجيل الدخول</Button>
