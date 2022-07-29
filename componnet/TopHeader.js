@@ -15,6 +15,7 @@ import { Button } from './Buttons';
 import {RiMenu4Fill} from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../state/actions';
+import Image from 'next/image';
 
 function TopHeader({setOpenMenu, openMenu}) {
     const [openUserMenu, setOpenUserMenu] = useState(false);
@@ -69,7 +70,14 @@ function TopHeader({setOpenMenu, openMenu}) {
 
                     {userData === 'userExist' && user ? 
                     <>
-                    <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} onClick={() => setOpenUserMenu(!openUserMenu)} />
+                    <div className={classes.container_img}>
+                    <Image 
+                        layout="fill"
+                        src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} 
+                        alt="user" 
+                        onClick={() => setOpenUserMenu(!openUserMenu)} 
+                    />
+                    </div>
                     <div className={`${classes.box_user} ${openUserMenu ? classes.active : ''}`}>
                         <div className={classes.link_user}>
                                 <img src={`/avatars/${user.avatar ? user.avatar : 'user.png'}`} />
