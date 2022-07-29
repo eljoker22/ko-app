@@ -31,7 +31,7 @@ function TopHeader({setOpenMenu, openMenu}) {
 
         useEffect(() => {
             setLoading(false);
-            setUserData(user ? user : 'notUser');
+            setUserData(token.jwt ? user : 'notUser');
         }, [])
 
         console.log(token);
@@ -90,7 +90,7 @@ function TopHeader({setOpenMenu, openMenu}) {
                         </ul>
                     </div> 
                     </>
-                    : userData == 'notUser' ?
+                    : userData === 'notUser' ?
                     <Link href="/login">
                         <a>
                             <Button>تسجيل الدخول</Button>
