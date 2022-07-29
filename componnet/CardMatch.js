@@ -38,7 +38,7 @@ function CardMatch({matches, logoLeague}) {
                                             <div className={classes.time}>
                                                 <div className={classes.day}>
                                                     <strong>
-                                                        {moment(match.attributes.time).format('Do').replace('th', '')}
+                                                        {moment(match.attributes.time).format('Do').replace(/[a-z]/g, '')}
                                                     </strong>
                                                     <span>
                                                         {moment(match.attributes.time).locale('ar').format('MMM')}
