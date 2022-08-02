@@ -82,13 +82,25 @@ function Register() {
             }
             if (result.jwt) {
                 setErr('');
-                setRegData({
-                    username: '',
-                    email: '',
-                    emailConfirm: '',
-                    password: '',
-                    passwordConfirm: '',
+                const sendConfirm = await fetch('https://ko-app-sports.herokuapp.com/api/auth/send-email-confirmation', {
+                    method: 'post',
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'eljokermano30@gmail.com'
+                    }),
                 })
+                const confirmResult = await sendConfirm.json();
+                console.log(confirmResult);
+                // setRegData({
+                //     username: '',
+                //     email: '',
+                //     emailConfirm: '',
+                //     password: '',
+                //     passwordConfirm: '',
+                // })
                 e.target.reset();
                 console.log('done !!');
                 setCookie('token', 'jwt', result.jwt, {

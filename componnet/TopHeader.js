@@ -39,21 +39,17 @@ function TopHeader({setOpenMenu, openMenu}) {
         console.log(token);
         
         const logout = () => {
-            destroyCookie(null, 'jwt');
+            destroyCookie('token', 'jwt');
             dispatch(setUser(null));
-            setTimeout(() => router.reload(), 1000);
+            //setTimeout(() => router.reload(), 1000);
         }
 
         console.log('redux' ,user);
 
         const sendTest = () => {
-            fetch('/api/send', {
+            fetch('https://ko-app-sports.herokuapp.com/api/email', {
                 method: 'post',
-                body: JSON.stringify({
-                    msg: 'test'
-                })
             }).then(res => console.log(res))
-            
         }
 
     return(
@@ -61,7 +57,10 @@ function TopHeader({setOpenMenu, openMenu}) {
             <div onClick={() => setOpenMenu(false)} className={`${classes.overlay} ${openMenu ? classes.active : ''}`}></div>
             <div className={classes.side_right}>
                 <RiMenu4Fill className={classes.bars} onClick={() => setOpenMenu(true)} />
-                header                   
+                header
+                <button onClick={sendTest}>
+                    send
+                </button>
             </div>
             
             <div className={classes.user}>

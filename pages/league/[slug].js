@@ -39,7 +39,6 @@ function League({league, matches}) {
             </div>
                 <h2 className={styles.section_title}>المباريات</h2>
                 <CardMatch matches={matchesL} logoLeague={`${leag.logo?.data.attributes.url}`} />
-                <div></div>
         </div>
     )
 }

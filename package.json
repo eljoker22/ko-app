@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.4.7",
+    "@novu/node": "^0.6.0",
     "@paypal/react-paypal-js": "^7.8.1",
     "@sendgrid/mail": "^7.7.0",
     "babel-runtime": "^6.26.0",
