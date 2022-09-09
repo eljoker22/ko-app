@@ -4,18 +4,18 @@ export default async function handler(req, res) {
     const dataRes = JSON.parse(body);
     try{
         if (req.method === 'POST') {
-            const resUpdate = await fetch('http://localhost:1337/api/user/updateLoggedInUser', {
-                method: 'PUT',
+            const resUpdate = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
+                method: 'post',
                 headers: {
                     'Accept' : 'application/json',
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImlhdCI6MTY1NTQ5OTE4OSwiZXhwIjoxNjU4MDkxMTg5fQ.udGooRL4_zFyjwSXROZRfO_k48BoNkBE6JSvKP-q4CE`
+                    "x-access-token": `${dataRes.token}`
                 },
-                body: JSON.stringify( {data: {
+                body: JSON.stringify( {
                     payment_method: 'paypal',
                     subscriptionId: dataRes.subscriptionId,
                     plan: dataRes.plan
-                }})
+                })
             })
             return res.status(200).json( body );
         }

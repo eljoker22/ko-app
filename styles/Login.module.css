@@ -15,8 +15,12 @@
 }
 .form{
     margin-top: 30px;
-    width: 100%;
-    max-width: 500px;
+    width: 400px;
+    max-width: 400px;
+    margin-bottom: 15px;
+}
+.form form{
+    margin-bottom: 15px;
 }
 .switch{
     margin-top: 40px;
@@ -41,10 +45,17 @@
     margin-right: 5px;
     font-size: 20px;
 }
+.forgot_link{
+    font-size: 14px;
+    text-decoration: underline;
+}
 @media (max-width: 450px) {
     .back_link{
         right: 20px;
-
+    }
+    .form{
+        width: 100%;
+        max-width: 100%;
     }
 }
 @media (max-height: 630px) {

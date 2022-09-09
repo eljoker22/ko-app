@@ -1,6 +1,6 @@
 import classes from '../styles/Card.module.css';
 import moment from 'moment/min/moment-with-locales';
-import {AiOutlineUnlock} from 'react-icons/ai';
+import {BsUnlock} from 'react-icons/bs';
 import {FaArrowLeft} from 'react-icons/fa';
 import {GiAbstract068} from 'react-icons/gi';
 import { motion } from 'framer-motion';
@@ -31,7 +31,7 @@ function CardMatch({matches, logoLeague}) {
 
                                             {match.attributes.free ?          
                                             <div className={classes.free_status}>
-                                                <AiOutlineUnlock />
+                                                <BsUnlock />
                                             </div>
                                             : ''}
 
@@ -92,7 +92,7 @@ function CardMatch({matches, logoLeague}) {
 
                                 {match.attributes.free ?          
                                 <div className={classes.free_status}>
-                                    <AiOutlineUnlock />
+                                    <BsUnlock />
                                 </div>
                                 : ''}
 

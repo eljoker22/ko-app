@@ -31,21 +31,22 @@ export async function getServerSideProps(ctx) {
 
 function Login() {
     const [logData, setLogData] = useState({
-        identifier: '',
+        email: '',
         password: ''
     });
     const [err, setErr] = useState(null);
     const [loading, setLoading] = useState(false); 
+    const [success, setSuccess] = useState('');
     const router = useRouter();
     const dispatch = useDispatch();
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        if (logData.identifier.length === 0 || logData.password.length === 0) {
+        if (logData.email.length === 0 || logData.password.length === 0) {
             setErr('يجب ملأ الحقول');
         }else{
             setLoading(true);
-            const res = await fetch(`https://ko-app-sports.herokuapp.com/api/auth/local`, {
+            const res = await fetch(`${process.env.nodeAppApi}/v1/auth/login`, {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
@@ -55,27 +56,30 @@ function Login() {
             });
             const result = await res.json();
             if (result?.error) {
-                setErr('البريد الالكترونى او كلمة المرور');
+                setErr(`${result.error}`);
+                setLoading(false)
+                if (result.error === 'تفقد بريدك الألكترونى للحصول على رمز تأكيد حسابك') {
+                    router.push(`/email-verify/${logData.email}`);
+                }
             }
-            if (result?.jwt) {
+            if (result?.token) {
+                dispatch(setUser(result));
+                router.replace('/');
                 setErr('');
                 setLogData({
-                    identifier: '',
+                    email: '',
                     password: ''
                 })
-                e.target.reset();
+                //e.target.reset();
                 
-                setCookie('token', 'jwt', result.jwt, {
+                setCookie('token', 'jwt', result.token, {
                     maxAge: 30 * 24 * 60 * 60,
                     path: '/',
                 })
-                setLoading(false);
-                dispatch(setUser(result.user));
-                router.replace('/');
-                console.log('done !!');
+                //setLoading(false);
+                //console.log('done !!');
             }
             console.log(result);
-            setLoading(false);
         }
     } 
 
@@ -96,12 +100,15 @@ function Login() {
                 <div className={classes.form}>
                     <form onSubmit={handleLogin}>
                         {err?.length > 0 && <AlertError errMsg={err} />}
-                        <InputForm type="email" onChange={(e) => setLogData({...logData, identifier: sanitizeHtml(e.target.value)})} placeholder="البريد الالكترونى" />
+                        <InputForm type="email" onChange={(e) => setLogData({...logData, email: sanitizeHtml(e.target.value)})} placeholder="البريد الالكترونى" />
                         <InputPass type="password" onChange={(e) => setLogData({...logData, password: sanitizeHtml(e.target.value)})} placeholder="كلمة المرور" />
                         <ButtonForm type="submit" loading={loading} disabled={loading}>
                             تسجيل الدخول
                         </ButtonForm>
                     </form>
+                    <Link href={`/forget-password`}>
+                    <a className={classes.forgot_link}>نسيت كلمة السر؟</a>
+                    </Link>
                 </div>
                 <p className={classes.switch}>
                     هل لديك حساب مسجل؟ <Link href='/register'><a>انشاء حساب</a></Link>

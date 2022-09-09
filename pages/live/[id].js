@@ -15,21 +15,9 @@ import {useMediaQuery} from 'react-responsive';
 
 export async function getServerSideProps(ctx) {
     const { id } = ctx.query;
-    const token = nookies.get(ctx).jwt;
-    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`, {
-        method: 'get',
-    });
-    const match = await res.json();
-    const resUser = await fetch(`${process.env.API_URL}/users/me`, {
-        method: 'get',
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    const user = await resUser.json();
-    let notAllow = false;
+    const token = nookies.get(ctx);
 
-    if (user.error) {
+    if (!token.jwt) {
         return{
             redirect: {
                 destination: '/login',
@@ -37,6 +25,35 @@ export async function getServerSideProps(ctx) {
             }
         }
     }
+
+    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`, {
+        method: 'get',
+    });
+    const match = await res.json();
+        
+            const resUser = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
+                method: 'get',
+                headers: {
+                    "x-access-token": `${token?.jwt}`
+                }
+            }) 
+            const userData = await resUser.json();
+    
+    
+    
+        if (userData.error || !userData.user) {
+            return{
+                redirect: {
+                    destination: '/login',
+                    permanent: false,
+                }
+            }
+        }
+        
+        let notAllow = false;
+
+
+    const { user } = userData;
 
     if (!match.data?.attributes.free) { // if match not free check access user allow or not
 
@@ -54,6 +71,8 @@ export async function getServerSideProps(ctx) {
                 if (resultPaypal?.status !== 'ACTIVE') { // if subscription status not Active
                     notAllow = true;
                 }
+            }else{
+                notAllow = true
             }
         }
 

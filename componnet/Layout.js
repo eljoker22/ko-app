@@ -14,14 +14,21 @@ function Layout({children}) {
     useEffect(() => {
         const getUser = async () => {
             const token = parseCookies('token');
-            const res = await fetch(`https://ko-app-sports.herokuapp.com/api/users/me`, {
-                method: 'get',
-                headers: {
-                    Authorization: `Bearer ${token.jwt}`
+            console.log(token)
+            if (token.jwt) {
+                const res = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
+                    method: 'get',
+                    headers: {
+                        "x-access-token": `${token.jwt}`
+                    }
+                }) 
+                const user = await res.json();
+                if (user.success) {
+                    dispatch(setUser(user.user))
                 }
-            }) 
-            const user = await res.json();
-            !user?.error ?  dispatch(setUser(user)) : ''
+                console.log(user)
+            }
+
         }
         getUser();
     }, [])

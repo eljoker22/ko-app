@@ -1,4 +1,4 @@
-.alert_err{
+.alert{
     padding: 15px;
     font-size: 20px;
     background: var(--box);
@@ -9,6 +9,7 @@
     align-items: center;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
-.alert_err img{
+
+.alert img{
     margin-left: 20px;
 }

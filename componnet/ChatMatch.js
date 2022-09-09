@@ -28,6 +28,7 @@ function ChatMatch({match}) {
         const q = query(collection(db, "chats"), where('matchId', '==', match?.id));
         const unsubscribe = onSnapshot(q, (querySnapShot) => {
             setSnapShot(querySnapShot)
+            console.log(querySnapShot)
         })
         return () => {
             unsubscribe();

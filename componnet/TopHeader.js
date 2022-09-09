@@ -33,7 +33,6 @@ function TopHeader({setOpenMenu, openMenu}) {
         useEffect(() => {
             setLoading(false);
             setUserData(token.jwt ? 'userExist' : 'userNotExist');
-
         }, [user])
 
         console.log(token);
@@ -41,16 +40,12 @@ function TopHeader({setOpenMenu, openMenu}) {
         const logout = () => {
             destroyCookie('token', 'jwt');
             dispatch(setUser(null));
+            router.replace('/')
             //setTimeout(() => router.reload(), 1000);
         }
 
         console.log('redux' ,user);
 
-        const sendTest = () => {
-            fetch('https://ko-app-sports.herokuapp.com/api/email', {
-                method: 'post',
-            }).then(res => console.log(res))
-        }
 
     return(
         <header className={classes.top_header}>
@@ -58,16 +53,13 @@ function TopHeader({setOpenMenu, openMenu}) {
             <div className={classes.side_right}>
                 <RiMenu4Fill className={classes.bars} onClick={() => setOpenMenu(true)} />
                 header
-                <button onClick={sendTest}>
-                    send
-                </button>
             </div>
             
             <div className={classes.user}>
                 <BsChatDots />
                 <RiNotification2Line />
 
-                    {userData === 'userExist' && user ? 
+                    { user ? 
                     <>
                     <div className={classes.container_img}>
                     <Image 

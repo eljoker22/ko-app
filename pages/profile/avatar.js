@@ -4,9 +4,31 @@ import {BsFillCheckCircleFill} from 'react-icons/bs';
 import { useState, useEffect } from 'react';
 import { parseCookies } from 'nookies';
 import {useRouter} from 'next/router';
+import nookies from 'nookies';
 
+export async function getServerSideProps(ctx) {
 
+    const token = nookies.get(ctx);
+    const res = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
+        method: 'get',
+        headers: {
+            "x-access-token": `${token.jwt}`
+        }
+    }) 
+    const user = await res.json();
 
+    if (user.user.avatar) {
+        return{
+            redirect: {
+                destination: '/profile',
+                permanent: false
+            }
+        }
+    }
+    return{
+        props: {}
+    }
+}
 
 function AvatarSelect() {
     const avatars = ['Guacamole-1.png', 'No gravity-2.png', 'Teamwork-5.png', 'Upstream-1.png', 'Upstream-4.png', 'Upstream-6.png', 'Upstream-7.png', 'Upstream-8.png'];
@@ -25,18 +47,20 @@ function AvatarSelect() {
         e.preventDefault();
         if (avatarSelect) {
             setLoading(true);
-            const res = await fetch('https://ko-app-sports.herokuapp.com/api/user/updateLoggedInUser', {
-                method: 'PUT',
+            const res = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
+                method: 'post',
                 headers: {
                     'Accept' : 'application/json',
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    "x-access-token": `${token}`
                 },
-                body: JSON.stringify( {data: {avatar: avatarSelect}} )
+                body: JSON.stringify(  {avatar: avatarSelect} )
             })
 
+            console.log(res)
             if (res.status === 200) {
                 router.replace('/profile');
+                setLoading(false);
             }
             
         }

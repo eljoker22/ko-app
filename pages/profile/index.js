@@ -5,16 +5,29 @@ import { ButtonFullWidth } from '../../componnet/Buttons';
 import {MdError} from 'react-icons/md';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
 import Link from 'next/link';
+
 export async function getServerSideProps(ctx) {
 
     const token = nookies.get(ctx);
-    const res = await fetch(`https://ko-app-sports.herokuapp.com/api/users/me`, {
+
+    if (!token.jwt) {
+        return{
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    }
+
+    const url = process.env.nodeAppApi;
+    const res = await fetch(`${url}/v1/auth/user`, {
+        method: 'get',
         headers: {
-            Authorization: `Bearer ${token.jwt}`
+            "x-access-token": `${token?.jwt}`
         }
     }) 
-    const user = await res.json();
-
+    const userRes = await res.json();
+    const {user} = userRes;
     // get user plan
     const planPeriod = user.plan === 'free' ? 'دائما' : user.plan === 'monthly' ? 'شهريا' : 'سنويا';
     const resPlan = await fetch(`${process.env.API_URL}/plans?filters[period][$eq]=${planPeriod}`);

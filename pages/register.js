@@ -3,7 +3,7 @@ import {useState, useEffect } from 'react';
 import Img from '../assest/live.png';
 import {InputForm, InputPass} from '../componnet/Inputs';
 import {ButtonForm} from '../componnet/Buttons';
-import { AlertError } from '../componnet/Alerts';
+import { AlertError, AlertSuccess } from '../componnet/Alerts';
 import sanitizeHtml from 'sanitize-html';
 import { parseCookies, setCookie } from 'nookies'
 import Link from 'next/link';
@@ -38,6 +38,7 @@ function Register() {
         passwordConfirm: '',
     });
     const [err, setErr] = useState(null);
+    const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const dispatch = useDispatch();
@@ -62,7 +63,7 @@ function Register() {
             setErr('كلمة المرور');
         }else{
             setLoading(true);
-            const res = await fetch(`https://ko-app-sports.herokuapp.com/api/auth/local/register`, {
+            const res = await fetch(`${process.env.nodeAppApi}/v1/auth/register`, {
                 method: 'post',
                 headers: {
                     'Accept' : 'application/json',
@@ -74,42 +75,23 @@ function Register() {
             console.log(result);
             if (result?.error) {
                 console.log(result.error.message)
-                result.error.message === 'Email is already taken' ? 
-                setErr('هذا البريد الالكترونى مسجل بالفعل') : 
-                result.error.message === 'email must be a valid email' ? setErr('البريد الالكترونى غير صحيح') :
-                setErr('اختر اسم مستخدم اخر')
+                setErr(result.error)
                 setLoading(false);
             }
-            if (result.jwt) {
+            if (result.success) {
                 setErr('');
-                const sendConfirm = await fetch('https://ko-app-sports.herokuapp.com/api/auth/send-email-confirmation', {
-                    method: 'post',
-                    headers: {
-                        'Accept' : 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: 'eljokermano30@gmail.com'
-                    }),
+                setSuccess('تأكد من كود تأكيد الحساب فى بريدك الألكترونى')
+                setRegData({
+                    username: '',
+                    email: '',
+                    emailConfirm: '',
+                    password: '',
+                    passwordConfirm: '',
                 })
-                const confirmResult = await sendConfirm.json();
-                console.log(confirmResult);
-                // setRegData({
-                //     username: '',
-                //     email: '',
-                //     emailConfirm: '',
-                //     password: '',
-                //     passwordConfirm: '',
-                // })
                 e.target.reset();
                 console.log('done !!');
-                setCookie('token', 'jwt', result.jwt, {
-                    maxAge: 30 * 24 * 60 * 60,
-                    path: '/',
-                })
-                dispatch(setUser(result.user));
-                router.push('/profile/avatar');
                 setLoading(false);
+                router.push('/login');
             }
         }
 
@@ -132,6 +114,8 @@ function Register() {
                 <img src={Img.src}  alt="live" />
                 <div className={classes.form}>
                     {err?.length > 0 && <AlertError errMsg={err} />}
+                    {success?.length > 0 && <AlertSuccess msg={success} />}
+
                     <form onSubmit={registerAuth}>
                         <InputForm type="email" onChange={(e) => setRegData({...regData, email: sanitizeHtml(e.target.value)})} placeholder="البريد الالكترونى" />
                         <InputForm type="email" onChange={(e) => setRegData({...regData, emailConfirm: sanitizeHtml(e.target.value)})} placeholder="تأكيد البريد الالكترونى" />
