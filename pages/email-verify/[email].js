@@ -64,7 +64,7 @@ function EmailVerify() {
                     {success?.length > 0 && <AlertSuccess msg={success} />}
                     <p>ادخل رمز تأكيد الحساب الذى تلقيته على بريدك <strong>{router.query?.email}</strong></p>
                     <form onSubmit={handleConfermRequest}>
-                        <InputForm type="text" onChange={(e) => setCode( sanitizeHtml(code) )} placeholder="ادخل الرمز الخاص بك" />
+                        <InputForm type="text" onChange={(e) => setCode( sanitizeHtml(e.target.value) )} placeholder="ادخل الرمز الخاص بك" />
                         <ButtonForm disabled={loading} loading={loading} type="submit">
                             تأكيد الحساب
                         </ButtonForm>
