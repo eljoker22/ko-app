@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { useRouter } from 'next/router';
 
-function emailVerify() {
+function EmailVerify() {
     const [err, setErr] = useState(null);
     const [success, setSuccess] = useState('');
     const [loading, setLoading] = useState(false);
@@ -75,4 +75,4 @@ function emailVerify() {
     )
 }
 
-export default emailVerify;
+export default EmailVerify;
