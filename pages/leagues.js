@@ -1,4 +1,4 @@
-import classes from '../styles/leagues.module.css';
+import classes from '../styles/Leagues.module.css';
 import Link from 'next/link';
 import React from 'react'
 
