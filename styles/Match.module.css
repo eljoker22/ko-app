@@ -40,6 +40,7 @@
 .info_match{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .team{
     text-align: center;

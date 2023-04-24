@@ -23,19 +23,19 @@ function Header({openMenu, setOpenMenu}) {
                         <span>الرئيسية</span>
                     </li></a>
                 </Link>
-                <Link href="/">
+                <Link href="/leagues">
                     <a><li>
                         <AiOutlineTrophy />
                         <span>البطولات</span>
                     </li></a>
                 </Link>
-                <Link href="/">
+                <Link href="/ufc">
                     <a><li>
                         <SiUfc />
                         <span>بطولة UFC</span>
                     </li></a>
                 </Link>
-                <Link href="/">
+                <Link href="/box">
                     <a><li>
                         <RiBoxingLine />
                         <span>الملاكمة</span>

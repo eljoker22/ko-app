@@ -1,20 +1,20 @@
-import classes from '../../styles/Match.module.css';
+import classes from '../../../styles/Match.module.css';
 import Link from 'next/link';
 import { useRef, useEffect, useState } from 'react';
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
 import qualitySelector from "videojs-hls-quality-selector";
 import _ from "videojs-contrib-quality-levels";
-import ChatMatch from '../../componnet/ChatMatch';
+import ChatMatch from '../../../componnet/ChatMatch';
 import moment from 'moment';
 import nookies from 'nookies';
-import {Button} from '../../componnet/Buttons';
+import {Button} from '../../../componnet/Buttons';
 import {GiAbstract068} from 'react-icons/gi';
 import { useSelector } from 'react-redux';
 import {useMediaQuery} from 'react-responsive';
 
 export async function getServerSideProps(ctx) {
-    const { id } = ctx.query;
+    const { type, id } = ctx.query;
     const token = nookies.get(ctx);
 
     if (!token.jwt) {
@@ -26,7 +26,20 @@ export async function getServerSideProps(ctx) {
         }
     }
 
-    const res = await fetch(`${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`, {
+    // get url with dynamic content
+    const urlReq = type === 'football-live' ?  
+    `${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`
+    : type === 'box-video' ?
+    `${process.env.API_URL}/box-matches/${id}?populate=thumbnail`
+    : type === 'ufc-video' ?
+    `${process.env.API_URL}/ufc-matches/${id}?populate=thumbnail`
+    :
+    '';
+
+
+
+
+    const res = await fetch(urlReq, {
         method: 'get',
     });
     const match = await res.json();
@@ -57,32 +70,20 @@ export async function getServerSideProps(ctx) {
 
     if (!match.data?.attributes.free) { // if match not free check access user allow or not
 
-            if (user?.plan == 'free') { // if user plan free not Allow to access
-                notAllow = true;
-            }else if (user?.plan !== 'free' && user.payment_method === 'paypal') { // if user plan premium && payment method paypal
-                const clintIdAndSecret = btoa('AQFiIarA9Ec2ZegTb-o7CKmDJ6nL3Paw-zfOXbX7aSp9lqnIU8NiNNze1JOm-L5v0RyZ8_X_dRgwzf8f:ENzwbhiH3RdDUVzSKeyK_RV9HPZqn2_4yfa4hWIUmshVjYI9pne_WpaoUqcCU1zOHPMWtxkzvZWp9QAa');
-                const resPaypal = await fetch(`https://api-m.sandbox.paypal.com/v1/billing/subscriptions/${user.subscriptionId}`, {
-                    headers:{
-                        "Content-Type": "application/json",
-                        Authorization: `Basic ${clintIdAndSecret}`
-                    }
-                })
-                const resultPaypal = await resPaypal.json();
-                if (resultPaypal?.status !== 'ACTIVE') { // if subscription status not Active
-                    notAllow = true;
-                }
-            }else{
-                notAllow = true
-            }
-        }
+    }
+
+    
+
+
+
 
     return{
-        props: {match, notAllow: notAllow}
+        props: {match, notAllow: notAllow, type: type}
     }
 }
 
 
-function Match({match, notAllow}) {
+function Match({match, notAllow, type}) {
     const u = useSelector(state => state.user);
     
     console.log('user', u);
@@ -95,6 +96,7 @@ function Match({match, notAllow}) {
     const smallScreen = useMediaQuery({ query: '(max-width: 480px)' });
 
     const matchData = match?.data?.attributes;
+    const contentUrl = type === 'football-live' ? match?.data?.attributes?.channel : match?.data?.attributes?.url;
     const videoJsOptions = {
         autoplay: false,
         controls: true,
@@ -105,8 +107,6 @@ function Match({match, notAllow}) {
         preload: 'metadata',
         sources: [
         {
-        src: matchData?.channel,
-        type: "application/x-mpegURL",
         withCredentials: false
         },
     ],
@@ -116,14 +116,15 @@ function Match({match, notAllow}) {
         nativeTextTracks: true
     }
     };
-
     useEffect(() => {
         if (!playerRef.current) {
+            
         const player = playerRef.current = videojs(videoRef.current, videoJsOptions, function onPlayerReady() {
         // console.log('onPlayerReady');
         });
 
         setPlayerLive(player)
+        player.src({ src: contentUrl, type: type === 'football-live' ? "application/x-mpegURL" : "video/mp4" });
     }
     }, [match])
 
@@ -177,7 +178,7 @@ function Match({match, notAllow}) {
         <div className={classes.match}>
             <div className={classes.video_side}>
                 <div className={classes.video_player}>
-                    <video poster={`${matchData.thumbnail.data.attributes.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
+                    <video poster={`${matchData?.thumbnail.data.attributes.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
                     {notAllow && 
                         <div className={classes.banner_not_allow}>
                             <div>
@@ -194,54 +195,62 @@ function Match({match, notAllow}) {
                 </div>
                 {!smallScreen ? 
                     <div className={classes.cont_info}>
+                        {type === 'football-live' ?
                         <div className={classes.league}>
-                            <img src={`${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
-                            <strong>{match.data.attributes.league.data.attributes.name}</strong>
+                            <img src={`https://strapi-122894-0.cloudclusters.net${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
+                            <strong>
+                                {match.data.attributes.league.data.attributes.name}
+                            </strong>
                         </div>
+                        :''}
                         <div className={classes.info_match}>
                             <div className={classes.team}>
-                                    <img src={`${matchData.logo1.data.attributes.url}`} />
-                                    <strong>{matchData.team1}</strong>
+                                {type === 'football-live' ? <img src={`${matchData.logo1.data.attributes.url}`} /> : ''}
+                                <strong>{type === 'football-live' ?  matchData.team1 : matchData?.fighter1}</strong>
                             </div>
-                            <div className={classes.timer_cont}>
-                                <div className={classes.timer_border}>
-                                    <p className={classes.timer_head}>{moment(matchData?.date).format('l')} {moment(matchData?.date).format('LT')}</p>
-                                    <div className={classes.timer}>
-                                        {matchStatus === 'wait' ? 
-                                        <>
-                                            <div className={classes.num}>
-                                            <span>يوم</span>
-                                            <strong>{timer?.days}</strong>
-                                            </div>
-                                            <div className={classes.num}>
-                                                <span>ساعة</span>
-                                                <strong>{timer?.hours}</strong>
-                                            </div>
-                                            <div className={classes.num}>
-                                                <span>دقيقة</span>
-                                                <strong>{timer?.minutes}</strong>
-                                            </div>
-                                            <div className={classes.num}>
-                                                <span>ثانية</span>
-                                                <strong>{timer?.seconds}</strong>
-                                            </div>
-                                        </>
-                                        : 
-                                            <strong>{matchStatus === 'now' ? 'مباشر' : 'انتهت'}</strong>
-                                        }
+                                {type === 'football-live' ? 
+                                    <div className={classes.timer_cont}>
+                                    <div className={classes.timer_border}>
+                                        <p className={classes.timer_head}>{moment(matchData?.date).format('l')} {moment(matchData?.date).format('LT')}</p>
+                                        <div className={classes.timer}>
+                                            {matchStatus === 'wait' ? 
+                                            <>
+                                                <div className={classes.num}>
+                                                <span>يوم</span>
+                                                <strong>{timer?.days}</strong>
+                                                </div>
+                                                <div className={classes.num}>
+                                                    <span>ساعة</span>
+                                                    <strong>{timer?.hours}</strong>
+                                                </div>
+                                                <div className={classes.num}>
+                                                    <span>دقيقة</span>
+                                                    <strong>{timer?.minutes}</strong>
+                                                </div>
+                                                <div className={classes.num}>
+                                                    <span>ثانية</span>
+                                                    <strong>{timer?.seconds}</strong>
+                                                </div>
+                                            </>
+                                            : 
+                                                <strong>{matchStatus === 'now' ? 'مباشر' : 'انتهت'}</strong>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                :
+                                    <img src='/vs.png' />
+                                }
                             <div className={classes.team}>
-                                <img src={`${matchData.logo2.data.attributes.url}`} />
-                                <strong>{matchData.team2}</strong>
+                            {type === 'football-live' ? <img src={`https://strapi-122894-0.cloudclusters.net${matchData.logo2.data.attributes.url}`} /> : ''}
+                                <strong>{type === 'football-live' ?  matchData.team2 : matchData?.fighter2}</strong>
                             </div>
                         </div>
                     </div>
                     : 
                     <div className={classes.cont_info}> 
                         <div className={classes.league}>
-                            <img src={`${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
+                            <img src={`https://strapi-122894-0.cloudclusters.net${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
                             <strong>{match.data.attributes.league.data.attributes.name}</strong>
                         </div>
                         <div className={classes.info_match}>
@@ -276,14 +285,14 @@ function Match({match, notAllow}) {
                         </div>
                             <div className={classes.cont_team}>
                                 <div className={classes.team}>
-                                        <img src={`${matchData.logo1.data.attributes.url}`} />
+                                        <img src={`https://strapi-122894-0.cloudclusters.net${matchData.logo1.data.attributes.url}`} />
                                         <strong>{matchData.team1}</strong>
                                 </div>
                                 <div>
                                     <GiAbstract068 />
                                 </div>
                                 <div className={classes.team}>
-                                    <img src={`${matchData.logo2.data.attributes.url}`} />
+                                    <img src={`https://strapi-122894-0.cloudclusters.net${matchData.logo2.data.attributes.url}`} />
                                     <strong>{matchData.team2}</strong>
                                 </div>
                             </div>

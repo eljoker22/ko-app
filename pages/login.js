@@ -29,6 +29,8 @@ export async function getServerSideProps(ctx) {
     }
 }
 
+console.log(process.env.nodeAppApi)
+
 function Login() {
     const [logData, setLogData] = useState({
         email: '',

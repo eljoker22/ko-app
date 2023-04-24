@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
-
+//import 'ds'
 function CardMatch({matches, logoLeague}) {
     const isMobScreen = useMediaQuery({ query: '(max-width: 768px)' });
     const isSmallScreen = useMediaQuery({ query: '(max-width: 412px)' });
@@ -40,9 +40,10 @@ function CardMatch({matches, logoLeague}) {
                                                     <strong>
                                                         {moment(match.attributes.time).format('Do').replace(/[a-z]/g, '')}
                                                     </strong>
-                                                    <span>
-                                                        {moment(match.attributes.time).locale('ar').format('MMM')}
-                                                    </span>
+                                                    {/* <span>
+                                                        {//moment(match.attributes.time).locale('ar').format('MMM')}
+                                                    </span>  */}
+
                                                 </div>
                                                 <div className={classes.hour}>
                                                     {moment(match.attributes.time).format('h:mm')}
@@ -55,7 +56,7 @@ function CardMatch({matches, logoLeague}) {
                                             <strong className={classes.title}>{match.attributes.title}</strong>
                                             <div className={classes.logos}>
                                                 <img src={`${match.attributes?.logo1?.data.attributes.url}`} />
-                                                    <GiAbstract068 />
+                                                <img src={`/vs.png`} />
                                                 <img src={`${match.attributes?.logo2?.data.attributes.url}`} />
                                             </div>
                                         </div>
@@ -109,22 +110,22 @@ function CardMatch({matches, logoLeague}) {
                                         {moment(match.attributes.time).format('h:mm')}
                                     </div>
                                 </div>
-                                <img src={`${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
+                                <img src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
                             </div>
                             <div>
                                 <strong className={classes.title}>{match.attributes.title}</strong>
                                 <div className={classes.logos}>
-                                    <img src={`${match.attributes?.logo1?.data.attributes.url}`} />
-                                        <GiAbstract068 />
-                                    <img src={`${match.attributes?.logo2?.data.attributes.url}`} />
+                                    <img src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.logo1?.data.attributes.url}`} />
+                                    <img src={`/vs.png`} />
+                                    <img src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.logo2?.data.attributes.url}`} />
                                 </div>
                             </div>
 
                             <div className={classes.bottom_card}>
                                 <div className={classes.league_logo}>
-                                    <img src={match.attributes.league ? `${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
+                                    <img src={match.attributes.league ? `https://strapi-122894-0.cloudclusters.net${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
                                 </div>
-                                <Link href={`/live/${match.id}`}>
+                                <Link href={`/live/${match.attributes.type}/${match.id}`}>
                                     <a>
                                         <div className={classes.btn_view}>
                                             <strong>مشاهدة</strong>

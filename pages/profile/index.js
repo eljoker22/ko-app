@@ -5,6 +5,7 @@ import { ButtonFullWidth } from '../../componnet/Buttons';
 import {MdError} from 'react-icons/md';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export async function getServerSideProps(ctx) {
 
@@ -55,10 +56,31 @@ export async function getServerSideProps(ctx) {
 }
 
 function Profile({user, plan}) {
-    console.log(plan)
+    console.log(user.subscriptionEndDate);
+    const [statusSub, setStatusSub] = useState(true);
+    const today = new Date().getTime();
+    const renewTime = new Date(user.subscriptionEndDate).getTime();
     const dateFix = moment(user.createdAt).format('l').split('/');
     const dateSign = `${dateFix[1]}/${dateFix[0]}/${dateFix[2]}`;
+    const dateEndSubFix = moment(user.subscriptionEndDate).format('l').split('/');
+    const dateEndSub = `${dateEndSubFix[1]}/${dateEndSubFix[0]}/${dateEndSubFix[2]}`;
     console.log(dateSign);
+
+    useEffect(() => {
+        const checkStatusSubscription = () => { // set Status Subscription
+            if (user.plan === 'free') {
+                setStatusSub(true);
+            } else{
+                if (today > renewTime) {
+                    setStatusSub(false)
+                }else{
+                    setStatusSub(true);
+                }
+            }
+        }
+        checkStatusSubscription();
+    },[])
+
     return(
         <div className={classes.profile_page}>
             <div className={classes.profile}>
@@ -104,12 +126,16 @@ function Profile({user, plan}) {
                             <strong>{`${plan.data[0]?.attributes.price}EGP/${plan.data[0]?.attributes.period}`}</strong>
                         </div>
                         <div className={classes.item_plan}>
+                            <span>تاريخ التجديد</span>
+                            <strong>{`${user.plan === 'free' ? 'دائما' : dateEndSub }`}</strong>
+                        </div>
+                        <div className={classes.item_plan}>
                             <span>حالة الأشتراك</span>
-                            <div className={classes.active}>
-                            <strong>
-                            {`مفعل  `}
-                            </strong>
-                            <BsFillCheckCircleFill />
+                                <div className={statusSub ? classes.active : ''}>
+                                <strong>
+                                {statusSub ? 'مفعل' : 'غير مفعل'}
+                                </strong>
+                                {statusSub ? <BsFillCheckCircleFill /> : <MdError />}
                             </div>
                         </div>
                         <Link href="/subscription">

@@ -33,7 +33,7 @@ function HeroSection({heroSection}) {
     return(
         <div className={classes.hero_section}>
             <div className={classes.big_banner}>
-                <img src={heroSection.data.attributes.bigBanner.data.attributes.url} />
+                <img src={`https://strapi-122894-0.cloudclusters.net${heroSection.data.attributes.bigBanner.data.attributes.url}`} />
                 <div className={classes.timer}>
                         <div className={classes.num}>
                             <div>
@@ -63,7 +63,7 @@ function HeroSection({heroSection}) {
             </div>
 
             <div className={classes.small_banner}>
-            <img src={heroSection.data.attributes.smallBanner.data.attributes.url} />
+            <img src={`https://strapi-122894-0.cloudclusters.net${heroSection.data.attributes.smallBanner.data.attributes.url}`} />
             </div>
         </div>
     )

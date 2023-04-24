@@ -36,9 +36,9 @@ function LeaguesSlider({leagues}) {
                                 <a>
                                     <div className={classes.leag}>
                                         <div className={classes.overlay}>
-                                        <img  src={`${leag.attributes?.logo?.data.attributes.url}`} />
+                                        <img  src={`https://strapi-122894-0.cloudclusters.net${leag.attributes?.logo?.data.attributes.url}`} />
                                         </div>
-                                        <img  src={`${leag.attributes?.thumbnail?.data.attributes.url}`} />
+                                        <img  src={`https://strapi-122894-0.cloudclusters.net${leag.attributes?.thumbnail?.data.attributes.url}`} />
                                     </div>
                                 </a>
                             </Link>

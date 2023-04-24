@@ -58,7 +58,7 @@ function TopHeader({setOpenMenu, openMenu}) {
             <div className={classes.user}>
                 <BsChatDots />
                 <RiNotification2Line />
-
+                    
                     { user ? 
                     <>
                     <div className={classes.container_img}>

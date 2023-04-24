@@ -79,6 +79,10 @@
     color: greenyellow;
     margin-right: 10px;
 }
+.item_plan > div svg{
+    color: red;
+    margin-right: 10px;
+}
 .item_plan span{
     color: #ccc;
     margin-left: 10px;

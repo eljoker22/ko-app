@@ -18,12 +18,12 @@ function SliderMatches({matches}) {
             <Swiper 
                 modules={[Navigation]}
                 spaceBetween={20}
-                slidesPerView={!smallScreen ? 2 : 1}
+                slidesPerView={!smallScreen ? 3 : 1}
                 navigation
                 >
                     {matches.map((match) => (
                         <SwiperSlide key={match.id} className={classes.swiperSlide}>
-                            <Link href={`/live/${match.id}`}>
+                            <Link href={`/live/${match.attributes.type}/${match.id}`}>
                                 <a>
                                 <div className={classes.match}>
                                     <div className={classes.overlay}>
@@ -32,7 +32,7 @@ function SliderMatches({matches}) {
                                         <AiOutlineUnlock />
                                     </div>
                                     <img className={classes.icon} src={playIcon.src} />
-                                    <img className={classes.thumbnail} src={`${match.attributes?.thumbnail?.data.attributes.url}`} />
+                                    <img className={classes.thumbnail} src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.thumbnail?.data.attributes.url}`} />
                                 </div>
                                 </a>
                             </Link>

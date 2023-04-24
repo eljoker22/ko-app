@@ -1,7 +1,6 @@
 import classes from '../styles/Plans.module.css';
 import {ImRadioUnchecked, ImRadioChecked2} from 'react-icons/im';
-import {FaCcVisa} from 'react-icons/fa';
-import {ImPaypal} from 'react-icons/im';
+import {SiVodafone} from 'react-icons/si';
 import { useState } from 'react';
 import { ButtonForm } from '../componnet/Buttons';
 import {PayPalButtons, PayPalScriptProvider} from '@paypal/react-paypal-js';
@@ -21,17 +20,13 @@ export async function getServerSideProps() {
 function PlansPage({plans}) {
     const token = parseCookies('token').jwt;
     const [planSelect, setPlanSelect] = useState('الخطة المجانية');
-    const [paymentSelect, setPaymentSelect] = useState('بطاقة الأئتمان');
+    const [paymentSelect, setPaymentSelect] = useState('فودافون كاش');
     const [popupSuccess, setPopupSuccess] = useState(false);
     const payments = [
         {
-            name: 'بطاقة الأئتمان',
-            icon: <FaCcVisa />,
+            name: 'فودافون كاش',
+            icon: <SiVodafone />,
         },
-        {
-            name: 'بايبال',
-            icon: <ImPaypal />,
-        }
     ]
     
     return(
@@ -74,44 +69,11 @@ function PlansPage({plans}) {
                     </div>
                 ))}
             </div>
-
-            {paymentSelect === 'بايبال' ? 
-                        <PayPalScriptProvider options={{ 
-                            "client-id": "AQFiIarA9Ec2ZegTb-o7CKmDJ6nL3Paw-zfOXbX7aSp9lqnIU8NiNNze1JOm-L5v0RyZ8_X_dRgwzf8f",
-                            "disable-funding": "credit,card",
-                            "vault": "true"
-                        }}>
-                        <PayPalButtons
-                            disabled={planSelect === 'الخطة المجانية' ? true : false}
-                            style={{"color":"gold","height":55,"shape": "rect"}}
-                            createSubscription={(data, actions) => {
-                                return actions.subscription.create({
-                                    plan_id: 'P-9H409299XA8150024MJ6VBKQ'
-                                });
-                            }}
-                            onApprove={async (data, actions) => {
-                                console.log(data)
-                                const res = await fetch('/api/paypalSubscription', {
-                                    method: 'POST',
-                                    body: JSON.stringify({
-                                        token: token,
-                                        subscriptionId: data.subscriptionID,
-                                        plan: planSelect === 'الخطة الشهرية' ? 'monthly' : 'yearly'
-                                    })
-                                })
-                                if (res.status === 200) {
-                                    setPopupSuccess(true);
-                                }
-                            }}
-                        />
-                    </PayPalScriptProvider>
-                    :
-                    <form>
-                        <ButtonForm type="submit">
-                            اشتراك
-                        </ButtonForm>
-                    </form>
-                    }
+            <form>
+                <ButtonForm type="submit">
+                    اشتراك
+                </ButtonForm>
+            </form>
         </div>
     )
 }

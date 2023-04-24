@@ -1,0 +1,25 @@
+.leagues{
+    margin-top: 20;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.leag{
+    background: var(--box);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 260px;
+    border-width: 2px;
+    border-color: 'transparent';
+    transition: 0.2s ease-in-out;
+}
+.leag:hover{
+    border-color: var(--primary);
+}
+.leag img{
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+}

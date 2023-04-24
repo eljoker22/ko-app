@@ -6,6 +6,9 @@
     width: 70%;
     max-height: 450px;
 }
+.cover.fight{
+    width: 100%;
+}
 .cover img{
     width: 100%;
     max-height: 100%;
