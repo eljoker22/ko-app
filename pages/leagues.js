@@ -9,9 +9,9 @@ const leagues = ({leagues}) => {
         <h2>البطولات والمنافسات</h2>
         <div className={classes.leagues}>
             {leagues?.map((leag) => (
-                <Link href={`/league/${leag.attributes.name.replaceAll(' ', '-')}`}>
+                <Link key={leag.id} href={`/league/${leag.attributes.name.replaceAll(' ', '-')}`}>
                 <a>
-                    <div key={leag.id} className={classes.leag}>
+                    <div className={classes.leag}>
                         <img src={`https://strapi-122894-0.cloudclusters.net${leag.attributes?.logo?.data.attributes.url}`} />
                     </div>
                 </a>
