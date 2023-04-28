@@ -31,14 +31,14 @@ function LeaguesSlider({leagues}) {
                 onSwiper={(swiper) => console.log(swiper)}>
 
                     {leagues.map((leag) => (
-                        <SwiperSlide key={leag.attributes.name}>
-                            <Link href={`/league/${leag.attributes.name.replaceAll(' ', '-')}`}>
+                        <SwiperSlide key={leag.fields.name}>
+                            <Link href={`/league/${leag.fields.name.replaceAll(' ', '-')}`}>
                                 <a>
                                     <div className={classes.leag}>
                                         <div className={classes.overlay}>
-                                        <img  src={`https://strapi-122894-0.cloudclusters.net${leag.attributes?.logo?.data.attributes.url}`} />
+                                        <img  src={`${leag.fields?.logo?.fields.file.url}`} />
                                         </div>
-                                        <img  src={`https://strapi-122894-0.cloudclusters.net${leag.attributes?.thumbnail?.data.attributes.url}`} />
+                                        <img  src={`${leag.fields?.thumbnail?.fields.file.url}`} />
                                     </div>
                                 </a>
                             </Link>

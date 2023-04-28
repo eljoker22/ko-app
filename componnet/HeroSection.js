@@ -10,7 +10,7 @@ function HeroSection({heroSection}) {
     });
 
     const handleTimer = () => {
-        const matchDate = new Date(heroSection.data.attributes.match.data.attributes.time);
+        const matchDate = new Date(heroSection.data.fields.match.data.fields.time);
         const total = Date.parse(matchDate) - Date.parse(new Date());
         const seconds = Math.floor( (total/1000) % 60 );
         const minutes = Math.floor( (total/1000/60) % 60 );
@@ -33,7 +33,7 @@ function HeroSection({heroSection}) {
     return(
         <div className={classes.hero_section}>
             <div className={classes.big_banner}>
-                <img src={`https://strapi-122894-0.cloudclusters.net${heroSection.data.attributes.bigBanner.data.attributes.url}`} />
+                <img src={`${heroSection.data.fields.bigBanner.fields.file.url}`} />
                 <div className={classes.timer}>
                         <div className={classes.num}>
                             <div>
@@ -63,7 +63,7 @@ function HeroSection({heroSection}) {
             </div>
 
             <div className={classes.small_banner}>
-            <img src={`https://strapi-122894-0.cloudclusters.net${heroSection.data.attributes.smallBanner.data.attributes.url}`} />
+            <img src={`${heroSection.data.fields.smallBanner.fields.file.url}`} />
             </div>
         </div>
     )

@@ -5,7 +5,8 @@ import { Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import playIcon from '../assest/play.png';
-import {AiOutlineUnlock} from 'react-icons/ai';
+import {FaLockOpen} from 'react-icons/fa';
+import {FaLock} from 'react-icons/fa';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -22,17 +23,22 @@ function SliderMatches({matches}) {
                 navigation
                 >
                     {matches.map((match) => (
-                        <SwiperSlide key={match.id} className={classes.swiperSlide}>
-                            <Link href={`/live/${match.attributes.type}/${match.id}`}>
+                        <SwiperSlide key={match.sys.id} className={classes.swiperSlide}>
+                            <Link href={`/live/${match.fields.type}/${match.sys.id}`}>
                                 <a>
                                 <div className={classes.match}>
                                     <div className={classes.overlay}>
                                     </div>
+                                    {match.fields.free ? 
                                     <div className={classes.free}>
-                                        <AiOutlineUnlock />
+                                        <FaLockOpen />
                                     </div>
+                                    :
+                                    <div className={classes.free}>
+                                        <FaLock />
+                                    </div>}
                                     <img className={classes.icon} src={playIcon.src} />
-                                    <img className={classes.thumbnail} src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.thumbnail?.data.attributes.url}`} />
+                                    <img className={classes.thumbnail} src={`${match.fields?.thumbnail?.fields.file.url}`} />
                                 </div>
                                 </a>
                             </Link>

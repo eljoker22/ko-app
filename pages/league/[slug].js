@@ -3,33 +3,34 @@ import styles from '../../styles/Home.module.css';
 import moment from 'moment';
 import { Button, ButtonFullWidth } from '../../componnet/Buttons';
 import CardMatch from '../../componnet/CardMatch';
+import { getLeague, getLeagues, getMatch, getMatches } from '../../datalayer/contentful/data';
 
 
 function League({league, matches}) {
     console.log(league);
     console.log(matches);
-    const leag = league?.data[0].attributes;
-    const matchesL = matches?.data[0].attributes.matches?.data;
+    const leag = league[0]?.fields;
+    const matchesL = matches;
     return(
         <div>
             <div className={classes.banners}>
                 <div className={classes.cover}>
-                    <img src={`https://strapi-122894-0.cloudclusters.net${leag.cover?.data.attributes.url}`} />
+                    <img src={`${leag.cover?.fields.file.url}`} />
                 </div>
                 <div className={classes.banner}>
-                    <img src={`https://strapi-122894-0.cloudclusters.net${leag.logo?.data.attributes.url}`} />
+                    <img src={`${leag.logo?.fields.file.url}`} />
                     <strong>{leag.name}</strong>
                     <div className={classes.match}>
                         <div className={classes.team}>
-                            <img src={`https://strapi-122894-0.cloudclusters.net${matchesL[0]?.attributes.logo1?.data.attributes.url}`} />
-                            <strong>{matchesL[0]?.attributes.team1}</strong>
+                            <img src={`${matchesL[0]?.fields.logo1?.fields.file.url}`} />
+                            <strong>{matchesL[0]?.fields.team1}</strong>
                         </div>
                         <div className={classes.time}>
-                            {moment(matchesL[0]?.attributes.time).format('h:mm')}
+                            {moment(matchesL[0]?.fields.time).format('h:mm')}
                         </div>
                         <div className={classes.team}>
-                            <img src={`https://strapi-122894-0.cloudclusters.net${matchesL[0]?.attributes.logo2?.data.attributes.url}`} />
-                            <strong>{matchesL[0]?.attributes.team2}</strong>
+                            <img src={`${matchesL[0]?.fields.logo2?.fields.file.url}`} />
+                            <strong>{matchesL[0]?.fields.team2}</strong>
                         </div>
                     </div>
                     <ButtonFullWidth>
@@ -38,7 +39,7 @@ function League({league, matches}) {
                 </div>
             </div>
                 <h2 className={styles.section_title}>المباريات</h2>
-                <CardMatch matches={matchesL} logoLeague={`https://strapi-122894-0.cloudclusters.net${leag.logo?.data.attributes.url}`} />
+                <CardMatch matches={matchesL} logoLeague={`${leag.logo?.fields.file.url}`} />
         </div>
     )
 }
@@ -46,10 +47,9 @@ function League({league, matches}) {
 export default League;
 
 export async function getStaticPaths() {
-    const res = await fetch(`${process.env.API_URL}/leagues`);
-    const leagues = await res.json();
-    const paths = leagues.data.map((leag) => ({
-        params: {slug: leag.attributes.name.split(' ').join('-').toString()},
+    const leagues = await getLeagues();
+    const paths = leagues.map((leag) => ({
+        params: {slug: leag.fields.name.split(' ').join('-').toString()},
     }))
 
     return{
@@ -60,10 +60,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
     const slug = params.slug.split('-').join(' ');
-    const res = await fetch(`${process.env.API_URL}/leagues?populate=logo,cover,thumbnail&filters[name][$eq]=${slug}`);
-    const resMatches = await fetch(`${process.env.API_URL}/leagues?populate[matches][populate]=logo1,logo2,thumbnail&filters[name][$eq]=${slug}`);
-    const league = await res.json();
-    const matches = await resMatches.json();
+    const league = await getLeague(slug);
+    const allMatches = await getMatches();
+    const matches = allMatches.filter((match) => match.fields.league.fields.name == slug);
     return{
         props: {league: league, matches: matches}
     }

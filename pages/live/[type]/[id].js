@@ -12,6 +12,7 @@ import {Button} from '../../../componnet/Buttons';
 import {GiAbstract068} from 'react-icons/gi';
 import { useSelector } from 'react-redux';
 import {useMediaQuery} from 'react-responsive';
+import { getBoxMatch, getMatch, getUfcMatch } from '../../../datalayer/contentful/data';
 
 export async function getServerSideProps(ctx) {
     const { type, id } = ctx.query;
@@ -27,23 +28,19 @@ export async function getServerSideProps(ctx) {
     }
 
     // get url with dynamic content
-    const urlReq = type === 'football-live' ?  
-    `${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`
-    : type === 'box-video' ?
-    `${process.env.API_URL}/box-matches/${id}?populate=thumbnail`
-    : type === 'ufc-video' ?
-    `${process.env.API_URL}/ufc-matches/${id}?populate=thumbnail`
-    :
-    '';
+    // const urlReq = type === 'football-live' ?  
+    // `${process.env.API_URL}/matches/${id}?populate=thumbnail,logo1,logo2&populate=league.logo`
+    // : type === 'box-video' ?
+    // `${process.env.API_URL}/box-matches/${id}?populate=thumbnail`
+    // : type === 'ufc-video' ?
+    // `${process.env.API_URL}/ufc-matches/${id}?populate=thumbnail`
+    // :
+    // '';
 
+    const match = type === 'football-live' ? await getMatch(id) : type === 'box-video' ? await getBoxMatch(id) : await getUfcMatch(id);
 
-
-
-    const res = await fetch(urlReq, {
-        method: 'get',
-    });
-    const match = await res.json();
         
+        // get user data
             const resUser = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
                 method: 'get',
                 headers: {
@@ -68,7 +65,7 @@ export async function getServerSideProps(ctx) {
 
     const { user } = userData;
 
-    if (!match.data?.attributes.free) { // if match not free check access user allow or not
+    if (!match?.fields.free) { // if match not free check access user allow or not
 
     }
 
@@ -95,10 +92,10 @@ function Match({match, notAllow, type}) {
     const [matchStatus, setMatchStatus] = useState('wait');
     const smallScreen = useMediaQuery({ query: '(max-width: 480px)' });
 
-    const matchData = match?.data?.attributes;
-    const contentUrl = type === 'football-live' ? match?.data?.attributes?.channel : match?.data?.attributes?.url;
+    const matchData = match.fields;
+    const contentUrl = match?.fields?.url;
     const videoJsOptions = {
-        autoplay: false,
+        autoplay: true,
         controls: true,
         height: 550,
         width: 900,
@@ -107,6 +104,8 @@ function Match({match, notAllow, type}) {
         preload: 'metadata',
         sources: [
         {
+        src: contentUrl, 
+        type: "application/x-mpegURL",
         withCredentials: false
         },
     ],
@@ -178,7 +177,7 @@ function Match({match, notAllow, type}) {
         <div className={classes.match}>
             <div className={classes.video_side}>
                 <div className={classes.video_player}>
-                    <video poster={`${matchData?.thumbnail.data.attributes.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
+                    <video poster={`${matchData?.thumbnail.fields.file.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
                     {notAllow && 
                         <div className={classes.banner_not_allow}>
                             <div>
@@ -197,15 +196,15 @@ function Match({match, notAllow, type}) {
                     <div className={classes.cont_info}>
                         {type === 'football-live' ?
                         <div className={classes.league}>
-                            <img src={`https://strapi-122894-0.cloudclusters.net${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
+                            <img src={`${matchData.league.fields.logo.fields.file.url}`} />
                             <strong>
-                                {match.data.attributes.league.data.attributes.name}
+                                {matchData.league.fields.name}
                             </strong>
                         </div>
                         :''}
                         <div className={classes.info_match}>
                             <div className={classes.team}>
-                                {type === 'football-live' ? <img src={`${matchData.logo1.data.attributes.url}`} /> : ''}
+                                {type === 'football-live' ? <img src={`${matchData.logo1.fields.file.url}`} /> : ''}
                                 <strong>{type === 'football-live' ?  matchData.team1 : matchData?.fighter1}</strong>
                             </div>
                                 {type === 'football-live' ? 
@@ -242,7 +241,7 @@ function Match({match, notAllow, type}) {
                                     <img src='/vs.png' />
                                 }
                             <div className={classes.team}>
-                            {type === 'football-live' ? <img src={`https://strapi-122894-0.cloudclusters.net${matchData.logo2.data.attributes.url}`} /> : ''}
+                            {type === 'football-live' ? <img src={`${matchData.logo2.fields.file.url}`} /> : ''}
                                 <strong>{type === 'football-live' ?  matchData.team2 : matchData?.fighter2}</strong>
                             </div>
                         </div>
@@ -250,8 +249,8 @@ function Match({match, notAllow, type}) {
                     : 
                     <div className={classes.cont_info}> 
                         <div className={classes.league}>
-                            <img src={`https://strapi-122894-0.cloudclusters.net${match.data.attributes.league.data.attributes.logo.data.attributes.formats.thumbnail.url}`} />
-                            <strong>{match.data.attributes.league.data.attributes.name}</strong>
+                            <img src={`${match.league.fields.logo.fields.file.url}`} />
+                            <strong>{match.league.fields.name}</strong>
                         </div>
                         <div className={classes.info_match}>
                             <div className={classes.timer_cont}>
@@ -285,14 +284,14 @@ function Match({match, notAllow, type}) {
                         </div>
                             <div className={classes.cont_team}>
                                 <div className={classes.team}>
-                                        <img src={`https://strapi-122894-0.cloudclusters.net${matchData.logo1.data.attributes.url}`} />
+                                        <img src={`${matchData.logo1.fields.file.url}`} />
                                         <strong>{matchData.team1}</strong>
                                 </div>
                                 <div>
                                     <GiAbstract068 />
                                 </div>
                                 <div className={classes.team}>
-                                    <img src={`https://strapi-122894-0.cloudclusters.net${matchData.logo2.data.attributes.url}`} />
+                                    <img src={`${matchData.logo2.fields.file.url}`} />
                                     <strong>{matchData.team2}</strong>
                                 </div>
                             </div>
@@ -301,7 +300,7 @@ function Match({match, notAllow, type}) {
                     </div>
                     }
             </div>
-            <ChatMatch match={match?.data} />
+            <ChatMatch match={match} />
         </div>
     )
 }

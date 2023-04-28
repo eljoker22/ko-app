@@ -6,11 +6,11 @@ import { ButtonForm } from '../componnet/Buttons';
 import {PayPalButtons, PayPalScriptProvider} from '@paypal/react-paypal-js';
 import { parseCookies } from 'nookies';
 import {Popup, PopupSubscripe} from '../componnet/Popups';
+import { getPlans } from '../datalayer/contentful/data';
 
 export async function getServerSideProps() {
     
-    const res = await fetch(`${process.env.API_URL}/plans`);
-    const plans = await res.json();
+    const plans = await getPlans();
 
     return{
         props: {plans: plans}
@@ -35,18 +35,18 @@ function PlansPage({plans}) {
             <h1>ابدأ اشتراكك الأن</h1>
             <div className={classes.plans}>
                 <h3><span>1</span> اختر الخطة</h3>
-                {plans.data.map((plan) => (
+                {plans.map((plan) => (
                     <div 
-                        key={plan.attributes.name}
-                        className={`${classes.plan} ${plan.attributes.name === planSelect ? classes.active : ''}`}
-                        onClick={() => setPlanSelect(plan.attributes.name)}>
-                        {planSelect === plan.attributes.name ? <ImRadioChecked2 /> : <ImRadioUnchecked /> }
+                        key={plan.fields.name}
+                        className={`${classes.plan} ${plan.fields.name === planSelect ? classes.active : ''}`}
+                        onClick={() => setPlanSelect(plan.fields.name)}>
+                        {planSelect === plan.fields.name ? <ImRadioChecked2 /> : <ImRadioUnchecked /> }
                         <div>
-                            <strong>{plan.attributes.name}</strong>
-                            <p>{`${plan.attributes.no_ads ? 'بدون اعلانات' : 'يوجد اعلانات'} , ${plan.attributes.access ? 'وصول لجميع المباربات' : 'وصول للمباريات المجانية فقط'}`}</p>
+                            <strong>{plan.fields.name}</strong>
+                            <p>{`${plan.fields.no_ads ? 'بدون اعلانات' : 'يوجد اعلانات'} , ${plan.fields.access ? 'وصول لجميع المباربات' : 'وصول للمباريات المجانية فقط'}`}</p>
                         </div>
                         <div>
-                            <span className={classes.price}>{`${plan.attributes.price}EGP/${plan.attributes.period}`}</span>
+                            <span className={classes.price}>{`${plan.fields.price}EGP/${plan.fields.period}`}</span>
                         </div>
                     </div>
                 ))}

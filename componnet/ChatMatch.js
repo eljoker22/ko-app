@@ -23,9 +23,9 @@ function ChatMatch({match}) {
     const [loading, setLoading] = useState(true);
     const chatRef = useRef(null);
     const commentsRef = useRef(null);
-        console.log(match.id)
+        console.log(match.sys.id)
     useEffect(() => {
-        const q = query(collection(db, "chats"), where('matchId', '==', match?.id));
+        const q = query(collection(db, "chats"), where('matchId', '==', match?.sys.id));
         const unsubscribe = onSnapshot(q, (querySnapShot) => {
             setSnapShot(querySnapShot)
             console.log(querySnapShot)
@@ -72,13 +72,13 @@ function ChatMatch({match}) {
 
                 await setDoc(doc(db, 'chats', comments.docId), {
                     comments: arrayComments,
-                    matchId: match.id
+                    matchId: match.sys.id
                 });
                 //console.log(arrayComments);
             }else{
                 await addDoc(collection(db, 'chats'), {
                     comments: [data],
-                    matchId: match.id
+                    matchId: match.sys.id
                 })
             }
             

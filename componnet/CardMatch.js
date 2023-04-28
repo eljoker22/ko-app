@@ -1,8 +1,8 @@
 import classes from '../styles/Card.module.css';
 import moment from 'moment/min/moment-with-locales';
-import {BsUnlock} from 'react-icons/bs';
+import {FaLockOpen} from 'react-icons/fa';
+import {FaLock} from 'react-icons/fa';
 import {FaArrowLeft} from 'react-icons/fa';
-import {GiAbstract068} from 'react-icons/gi';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -20,7 +20,7 @@ function CardMatch({matches, logoLeague}) {
                         spaceBetween={10}
                         slidesPerView={!isSmallScreen ? 2 : 1}>
                             {matches.map((match) => (
-                                <SwiperSlide key={match.id}>
+                                <SwiperSlide key={match.sys.id}>
                                     <motion.div
                                         initial="hidden"
                                         animate="visible"
@@ -29,43 +29,46 @@ function CardMatch({matches, logoLeague}) {
 
                                         <div className={classes.thumbnail}>
 
-                                            {match.attributes.free ?          
+                                            {match.fields.free ?          
                                             <div className={classes.free_status}>
-                                                <BsUnlock />
+                                                <FaLockOpen />
                                             </div>
-                                            : ''}
+                                            : 
+                                            <div className={classes.free_status}>
+                                                <FaLock />
+                                            </div>}
 
                                             <div className={classes.time}>
                                                 <div className={classes.day}>
                                                     <strong>
-                                                        {moment(match.attributes.time).format('Do').replace(/[a-z]/g, '')}
+                                                        {moment(match.fields.time).format('Do').replace(/[a-z]/g, '')}
                                                     </strong>
                                                     {/* <span>
-                                                        {//moment(match.attributes.time).locale('ar').format('MMM')}
+                                                        {//moment(match.fields.time).locale('ar').format('MMM')}
                                                     </span>  */}
 
                                                 </div>
                                                 <div className={classes.hour}>
-                                                    {moment(match.attributes.time).format('h:mm')}
+                                                    {moment(match.fields.time).format('h:mm')}
                                                 </div>
                                             </div>
-                                            <img src={`${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
+                                            <img src={`${match.fields?.thumbnail?.fields.file.url}`} />
                                         </div>
 
                                         <div>
-                                            <strong className={classes.title}>{match.attributes.title}</strong>
+                                            <strong className={classes.title}>{match.fields.title}</strong>
                                             <div className={classes.logos}>
-                                                <img src={`${match.attributes?.logo1?.data.attributes.url}`} />
+                                                <img src={`${match.fields?.logo1?.fields.file.url}`} />
                                                 <img src={`/vs.png`} />
-                                                <img src={`${match.attributes?.logo2?.data.attributes.url}`} />
+                                                <img src={`${match.fields?.logo2?.fields.file.url}`} />
                                             </div>
                                         </div>
                                         
                                         <div className={classes.bottom_card}>
                                             <div className={classes.league_logo}>
-                                            <img src={match.attributes.league ? `${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
+                                            <img src={match.fields.league ? `${match.fields?.league.fields.logo.fields.file.url}` : logoLeague} />
                                             </div>
-                                            <Link href={`/live/${match.id}`}>
+                                            <Link href={`/live/${match.sys.id}`}>
                                                 <a>
                                                     <div className={classes.btn_view}>
                                                         <strong>مشاهدة</strong>
@@ -84,48 +87,50 @@ function CardMatch({matches, logoLeague}) {
                     <motion.div layout className={classes.cards}>
                     {matches.map((match) => (
                         <motion.div
-                            key={match.id}
+                            key={match.sys.id}
                             initial="hidden"
                             animate="visible"
                             transition={{ ease: "easeOut", duration: 0.5 }}
                             className={classes.card}>
                             <div className={classes.thumbnail}>
 
-                                {match.attributes.free ?          
-                                <div className={classes.free_status}>
-                                    <BsUnlock />
-                                </div>
-                                : ''}
-
+                            {match.fields.free ?          
+                            <div className={classes.free_status}>
+                                <FaLockOpen />
+                            </div>
+                            : 
+                            <div className={classes.free_status}>
+                                <FaLock />
+                            </div>}
                                 <div className={classes.time}>
                                     <div className={classes.day}>
                                         <strong>
-                                            {moment(match.attributes.time).format('Do').replace(/[a-z]/g, '')}
+                                            {moment(match.fields.time).format('Do').replace(/[a-z]/g, '')}
                                         </strong>
                                         <span>
-                                            {moment(match.attributes.time).locale('ar').format('MMM')}
+                                            {moment(match.fields.time).locale('ar').format('MMM')}
                                         </span>
                                     </div>
                                     <div className={classes.hour}>
-                                        {moment(match.attributes.time).format('h:mm')}
+                                        {moment(match.fields.time).format('h:mm')}
                                     </div>
                                 </div>
-                                <img src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.thumbnail?.data.attributes.formats.small.url}`} />
+                                <img src={`${match.fields?.thumbnail?.fields.file.url}`} />
                             </div>
                             <div>
-                                <strong className={classes.title}>{match.attributes.title}</strong>
+                                <strong className={classes.title}>{match.fields.title}</strong>
                                 <div className={classes.logos}>
-                                    <img src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.logo1?.data.attributes.url}`} />
+                                    <img src={`${match.fields?.logo1?.fields.file.url}`} />
                                     <img src={`/vs.png`} />
-                                    <img src={`https://strapi-122894-0.cloudclusters.net${match.attributes?.logo2?.data.attributes.url}`} />
+                                    <img src={`${match.fields?.logo2?.fields.file.url}`} />
                                 </div>
                             </div>
 
                             <div className={classes.bottom_card}>
                                 <div className={classes.league_logo}>
-                                    <img src={match.attributes.league ? `https://strapi-122894-0.cloudclusters.net${match.attributes?.league.data.attributes.logo.data.attributes.formats.thumbnail.url}` : logoLeague} />
+                                    <img src={match.fields.league ? `${match.fields?.league.fields.logo.fields.file.url}` : logoLeague} />
                                 </div>
-                                <Link href={`/live/${match.attributes.type}/${match.id}`}>
+                                <Link href={`/live/${match.fields.type}/${match.sys.id}`}>
                                     <a>
                                         <div className={classes.btn_view}>
                                             <strong>مشاهدة</strong>

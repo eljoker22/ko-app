@@ -1,6 +1,7 @@
 import classes from '../styles/Leagues.module.css';
 import Link from 'next/link';
 import React from 'react'
+import { getLeagues } from '../datalayer/contentful/data';
 
 const leagues = ({leagues}) => {
     console.log(leagues)
@@ -9,10 +10,10 @@ const leagues = ({leagues}) => {
         <h2>البطولات والمنافسات</h2>
         <div className={classes.leagues}>
             {leagues?.map((leag) => (
-                <Link key={leag.id} href={`/league/${leag.attributes.name.replaceAll(' ', '-')}`}>
+                <Link key={leag.id} href={`/league/${leag.fields.name.replaceAll(' ', '-')}`}>
                 <a>
                     <div className={classes.leag}>
-                        <img src={`https://strapi-122894-0.cloudclusters.net${leag.attributes?.logo?.data.attributes.url}`} />
+                        <img src={`${leag.fields?.logo?.fields.file.url}`} />
                     </div>
                 </a>
                 </Link>
@@ -25,11 +26,10 @@ const leagues = ({leagues}) => {
 export default leagues;
 
 export async function getStaticProps() {
-    const resLeagues = await fetch(`${process.env.API_URL}/leagues?populate=logo`);
-    const reqLeagues= await resLeagues.json();
+    const reqLeagues= await getLeagues();
 
 
     return{
-        props: { leagues: reqLeagues?.data}
+        props: { leagues: reqLeagues}
     }
 }

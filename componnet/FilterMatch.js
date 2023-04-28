@@ -23,7 +23,7 @@ function FilterMatch({matches, setMatchesFiltered}) {
             setMatchesFiltered(matches);
         }else if (type === 'today') {
             // filter matches to today matches
-            const matchesToday = matches.filter(match => moment(match.attributes.time).format('l') === moment(dateToday).format('l'));
+            const matchesToday = matches.filter(match => moment(match.fields.time).format('l') === moment(dateToday).format('l'));
             setMatchesFiltered(matchesToday);
 
         }else if (type === 'tom') {
@@ -33,11 +33,11 @@ function FilterMatch({matches, setMatchesFiltered}) {
             arrTomorwDate.splice(1, 1, nextDay.toString()); // replace today day with tomorw day
             const tomorwDate = arrTomorwDate.join('/');
             console.log(tomorwDate);
-            const matchesTomorw = matches.filter(match => moment(match.attributes.time).format('l') === tomorwDate);
+            const matchesTomorw = matches.filter(match => moment(match.fields.time).format('l') === tomorwDate);
             setMatchesFiltered(matchesTomorw);
 
         }else if (type === 'free') {
-            const freeMatches = matches.filter(match => match.attributes.free === true);
+            const freeMatches = matches.filter(match => match.fields.free === true);
             setMatchesFiltered(freeMatches);
         }
     }

@@ -3,18 +3,19 @@ import styles from '../styles/Home.module.css';
 import moment from 'moment';
 import { Button, ButtonFullWidth } from '../componnet/Buttons';
 import SliderMatches from '../componnet/SliderMatches';
+import { getUfcMatches, getUfcPage } from '../datalayer/contentful/data';
 
 
 function UfcPage({page, matches}) {
     console.log(page);
     console.log(matches);
-    const ufc = page?.attributes;
+    const ufc = page?.fields;
     
     return(
         <div>
             <div className={classes.banners}>
                 <div className={`${classes.cover} ${classes.fight}`}>
-                    <img src={`https://strapi-122894-0.cloudclusters.net${ufc.thumbnail?.data.attributes.url}`} />
+                    <img src={`${ufc.thumbnail?.fields.file.url}`} />
                 </div>
             </div>
 
@@ -28,12 +29,10 @@ export default UfcPage;
 
 
 export async function getStaticProps() {
-    const resUfc = await fetch(`${process.env.API_URL}/ufc-matches?populate=thumbnail`);
-    const reqUfc = await resUfc.json();
-    const resUfcPage = await fetch(`${process.env.API_URL}/ufc-page?populate=thumbnail`)
-    const reqUfcPage = await resUfcPage.json();
+    const reqUfc = await getUfcMatches();
+    const reqUfcPage = await getUfcPage();
 
     return{
-        props: {page: reqUfcPage?.data, matches: reqUfc?.data}
+        props: {page: reqUfcPage, matches: reqUfc}
     }
 }

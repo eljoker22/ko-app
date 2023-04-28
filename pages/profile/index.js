@@ -6,6 +6,7 @@ import {MdError} from 'react-icons/md';
 import {BsFillCheckCircleFill} from 'react-icons/bs';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { getPlan } from '../../datalayer/contentful/data';
 
 export async function getServerSideProps(ctx) {
 
@@ -31,8 +32,7 @@ export async function getServerSideProps(ctx) {
     const {user} = userRes;
     // get user plan
     const planPeriod = user.plan === 'free' ? 'دائما' : user.plan === 'monthly' ? 'شهريا' : 'سنويا';
-    const resPlan = await fetch(`${process.env.API_URL}/plans?filters[period][$eq]=${planPeriod}`);
-    const plan = await resPlan.json();
+    const plan = await getPlan(planPeriod);
     if (user.error) {
         return{
             redirect: {
@@ -111,19 +111,19 @@ function Profile({user, plan}) {
                     <div className={classes.plan_box}>
                         <div className={classes.head_plan}>
                             <img src="/play.png" />
-                            <strong>{plan.data[0]?.attributes.name}</strong>
+                            <strong>{plan[0]?.fields.name}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>الوصول</span>
-                            <strong>{plan.data[0]?.attributes.access ? 'الوصول لكافة المباريات' : 'الوصول للمباريات المجانية'}</strong>
+                            <strong>{plan[0]?.fields.access ? 'الوصول لكافة المباريات' : 'الوصول للمباريات المجانية'}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>الاعلانات</span>
-                            <strong>{plan.data[0]?.attributes.no_ads ? 'لاتوجد اعلانات' : 'توجد اعلانات'}</strong>
+                            <strong>{plan[0]?.fields.no_ads ? 'لاتوجد اعلانات' : 'توجد اعلانات'}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>السعر</span>
-                            <strong>{`${plan.data[0]?.attributes.price}EGP/${plan.data[0]?.attributes.period}`}</strong>
+                            <strong>{`${plan[0]?.fields.price}EGP/${plan[0]?.fields.period}`}</strong>
                         </div>
                         <div className={classes.item_plan}>
                             <span>تاريخ التجديد</span>
