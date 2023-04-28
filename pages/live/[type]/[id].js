@@ -82,8 +82,6 @@ export async function getServerSideProps(ctx) {
 
 function Match({match, notAllow, type}) {
     const u = useSelector(state => state.user);
-    
-    console.log('user', u);
 
     const videoRef = useRef(null);
     const playerRef = useRef(null);
@@ -91,6 +89,7 @@ function Match({match, notAllow, type}) {
     const [timer, setTimer] = useState(null);
     const [matchStatus, setMatchStatus] = useState('wait');
     const smallScreen = useMediaQuery({ query: '(max-width: 480px)' });
+
 
     const matchData = match.fields;
     const contentUrl = match?.fields?.url;
