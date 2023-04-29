@@ -60,7 +60,7 @@ export async function getServerSideProps(ctx) {
     //         }
     //     }
         
-    //     let notAllow = false;
+        let notAllow = false;
 
 
     // const { user } = userData;
