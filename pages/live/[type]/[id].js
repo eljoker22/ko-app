@@ -18,14 +18,14 @@ export async function getServerSideProps(ctx) {
     const { type, id } = ctx.query;
     const token = nookies.get(ctx);
 
-    if (!token.jwt) {
-        return{
-            redirect: {
-                destination: '/login',
-                permanent: false,
-            }
-        }
-    }
+    // if (!token.jwt) {
+    //     return{
+    //         redirect: {
+    //             destination: '/login',
+    //             permanent: false,
+    //         }
+    //     }
+    // }
 
     // get url with dynamic content
     // const urlReq = type === 'football-live' ?  
@@ -40,30 +40,30 @@ export async function getServerSideProps(ctx) {
     const match = type === 'football-live' ? await getMatch(id) : type === 'box-video' ? await getBoxMatch(id) : await getUfcMatch(id);
 
         
-        // get user data
-            const resUser = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
-                method: 'get',
-                headers: {
-                    "x-access-token": `${token?.jwt}`
-                }
-            }) 
-            const userData = await resUser.json();
+    //     // get user data
+    //         const resUser = await fetch(`${process.env.nodeAppApi}/v1/auth/user`, {
+    //             method: 'get',
+    //             headers: {
+    //                 "x-access-token": `${token?.jwt}`
+    //             }
+    //         }) 
+    //         const userData = await resUser.json();
     
     
     
-        if (userData.error || !userData.user) {
-            return{
-                redirect: {
-                    destination: '/login',
-                    permanent: false,
-                }
-            }
-        }
+    //     if (userData.error || !userData.user) {
+    //         return{
+    //             redirect: {
+    //                 destination: '/login',
+    //                 permanent: false,
+    //             }
+    //         }
+    //     }
         
-        let notAllow = false;
+    //     let notAllow = false;
 
 
-    const { user } = userData;
+    // const { user } = userData;
 
     if (!match?.fields.free) { // if match not free check access user allow or not
 
@@ -81,7 +81,7 @@ export async function getServerSideProps(ctx) {
 
 
 function Match({match, notAllow, type}) {
-    const u = useSelector(state => state.user);
+    //const u = useSelector(state => state.user);
 
     const videoRef = useRef(null);
     const playerRef = useRef(null);
