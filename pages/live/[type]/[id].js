@@ -63,7 +63,7 @@ export async function getServerSideProps(ctx) {
         let notAllow = false;
 
 
-    // const { user } = userData;
+    const { user } = userData;
 
     if (!match?.fields.free) { // if match not free check access user allow or not
 
