@@ -10,6 +10,7 @@ import {FaLock} from 'react-icons/fa';
 import Link from 'next/link';
 import { useRef } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { CostumImage } from './Images';
 
 
 function SliderMatches({matches}) {
@@ -38,7 +39,9 @@ function SliderMatches({matches}) {
                                         <FaLock />
                                     </div>}
                                     <img className={classes.icon} src={playIcon.src} />
-                                    <img className={classes.thumbnail} src={`${match.fields?.thumbnail?.fields.file.url}`} />
+                                    <CostumImage 
+                                        src={`${match.fields?.thumbnail?.fields.file.url.replace('//', 'https://')}`}
+                                    />
                                 </div>
                                 </a>
                             </Link>

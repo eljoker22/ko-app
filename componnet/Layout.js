@@ -34,11 +34,7 @@ function Layout({children}) {
     }, [])
     return(
         <div>
-            {router.pathname === '/register' ?
-            <main className={classes.container_fluid}>
-                {children}
-            </main>
-            : router.pathname === '/login' ? 
+            {router.pathname === '/register' || router.pathname === '/login' || router.pathname === '/forget-password' || router.pathname === '/reset-password' || router.pathname.includes('email-verify') ?
             <main className={classes.container_fluid}>
                 {children}
             </main>

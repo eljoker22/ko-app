@@ -8,6 +8,9 @@ const nextConfig = {
     nodeAppApi: 'https://ko-sports-users.onrender.com/api',
     SENDGRID_api_KEY: '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'
   },
+  images: {
+    domains: ['cdn.contentful.com', 'images.ctfassets.net'],
+  },
   async headers() {
     return [
       {

@@ -27,22 +27,30 @@
 .big_banner{
   position: relative;
   width: 70%;
-  height: auto;
 }
 .big_banner img, .small_banner img{
+
+}
+.image{
   width: 100%;
   height: auto;
-  max-height: 400px;
   border-radius: 15px;
-  object-fit: cover;
+  background: var(--box);
 }
 .small_banner{
   width: 28%;
 }
-.timer{
+.big_banner h2{
+  border-right: 4px solid var(--primary);
+  padding-right: 15px;
+}
+.info{
   position: absolute;
   bottom: 25px;
   right: 25px;
+}
+.timer{
+
   display: flex;
   align-items: center;
 }

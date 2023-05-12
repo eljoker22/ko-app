@@ -1,5 +1,7 @@
 import classes from '../styles/Home.module.css';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { CostumImage } from './Images';
 function HeroSection({heroSection}) {
     console.log(heroSection);
     const [timer, setTimer] = useState({
@@ -10,7 +12,7 @@ function HeroSection({heroSection}) {
     });
 
     const handleTimer = () => {
-        const matchDate = new Date(heroSection.data.fields.match.data.fields.time);
+        const matchDate = new Date(heroSection.fields.date);
         const total = Date.parse(matchDate) - Date.parse(new Date());
         const seconds = Math.floor( (total/1000) % 60 );
         const minutes = Math.floor( (total/1000/60) % 60 );
@@ -33,7 +35,11 @@ function HeroSection({heroSection}) {
     return(
         <div className={classes.hero_section}>
             <div className={classes.big_banner}>
-                <img src={`${heroSection.data.fields.bigBanner.fields.file.url}`} />
+                <CostumImage 
+                    src={`${heroSection.fields.thumbnail.fields.file.url.replace('//', 'https://')}`}
+                    />
+                <div className={classes.info}>
+                <h2>{heroSection.fields.name}</h2>
                 <div className={classes.timer}>
                         <div className={classes.num}>
                             <div>
@@ -60,10 +66,22 @@ function HeroSection({heroSection}) {
                             </div>
                         </div>
                 </div>
+                </div>
+                
             </div>
 
             <div className={classes.small_banner}>
-            <img src={`${heroSection.data.fields.smallBanner.fields.file.url}`} />
+            <div className={classes.Image}>
+                <Image 
+                    src={`${heroSection.fields.thumbnail.fields.file.url.replace('//', 'https://')}`}
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    objectFit='cover'
+                    style={{ width: '100%', height: 'auto' , borderRadius: '15px' }} // optional
+                    alt={'banner'}
+                />
+                </div>
             </div>
         </div>
     )

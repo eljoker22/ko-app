@@ -111,3 +111,12 @@ export const getPlan = async (period) => {
 
     return plan;
 }
+
+export const getEvents = async () => {
+    const res = await client.getEntries({
+        content_type: 'events',
+    });
+    const events = res.items;
+
+    return events;
+}

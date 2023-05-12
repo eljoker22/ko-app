@@ -7,7 +7,7 @@ import LeaguesSlider from '../componnet/LeaguesSlider'
 import SliderMatches from '../componnet/SliderMatches'
 import FilterMatch from '../componnet/FilterMatch'
 import { useState } from 'react'
-import { getMatches, getFreeMatches, getLeagues, getBoxMatches, getUfcMatches } from '../datalayer/contentful/data' 
+import { getMatches, getFreeMatches, getLeagues, getBoxMatches, getUfcMatches, getEvents } from '../datalayer/contentful/data' 
 
 export default function Home({matches, freeMatches, leagues, heroSection, boxMatches, ufcMatches}) {
   console.log(matches)
@@ -16,7 +16,7 @@ export default function Home({matches, freeMatches, leagues, heroSection, boxMat
 
   return (
     <div>
-        {/* <HeroSection heroSection={heroSection} /> */}
+        <HeroSection heroSection={heroSection[0]} />
         <h2 className={classes.section_title}>المباريات</h2>
           <FilterMatch matches={matches} setMatchesFiltered={setMatchesFiltered} />
           <CardMatch matches={matchesFiltered} />
@@ -51,7 +51,8 @@ export async function getStaticProps() {
   const leagues = await getLeagues();
   const boxMatches = await getBoxMatches();
   const ufcMatches = await getUfcMatches();
+  const events = await getEvents();
   return{
-    props: {matches: matches, freeMatches: freeMatches, leagues: leagues, heroSection: leagues, boxMatches: boxMatches, ufcMatches: ufcMatches}
+    props: {matches: matches, freeMatches: freeMatches, leagues: leagues, heroSection: events, boxMatches: boxMatches, ufcMatches: ufcMatches}
   }
 }

@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
+import { CostumImage } from './Images';
 //import 'ds'
 function CardMatch({matches, logoLeague}) {
     const isMobScreen = useMediaQuery({ query: '(max-width: 768px)' });
@@ -52,7 +53,9 @@ function CardMatch({matches, logoLeague}) {
                                                     {moment(match.fields.time).format('h:mm')}
                                                 </div>
                                             </div>
-                                            <img src={`${match.fields?.thumbnail?.fields.file.url}`} />
+                                            <CostumImage 
+                                                src={`${match.fields?.thumbnail?.fields.file.url.replace('//', 'https://')}`}
+                                            />
                                         </div>
 
                                         <div>
@@ -115,8 +118,8 @@ function CardMatch({matches, logoLeague}) {
                                         {moment(match.fields.time).format('h:mm')}
                                     </div>
                                 </div>
-                                <img src={`${match.fields?.thumbnail?.fields.file.url}`} />
-                            </div>
+                                <img src={`${match.fields?.thumbnail?.fields.file.url.replace('//', 'https://')}`} />
+                                </div>
                             <div>
                                 <strong className={classes.title}>{match.fields.title}</strong>
                                 <div className={classes.logos}>

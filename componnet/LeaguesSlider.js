@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive'
 import {FaArrowLeft} from 'react-icons/fa';
 import {FaArrowRight} from 'react-icons/fa';
 import { useRef, useEffect } from 'react';
+import { CostumImage } from './Images';
 
 function LeaguesSlider({leagues}) {
     const isSmallScreen = useMediaQuery({ query: '(max-width: 586px)' });
@@ -38,7 +39,9 @@ function LeaguesSlider({leagues}) {
                                         <div className={classes.overlay}>
                                         <img  src={`${leag.fields?.logo?.fields.file.url}`} />
                                         </div>
-                                        <img  src={`${leag.fields?.thumbnail?.fields.file.url}`} />
+                                        <CostumImage  
+                                            src={`${leag.fields?.thumbnail?.fields.file.url.replace('//', 'https://')}`}
+                                        />
                                     </div>
                                 </a>
                             </Link>

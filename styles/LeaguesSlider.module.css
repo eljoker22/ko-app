@@ -3,12 +3,12 @@
 }
 
 .leag > img{
-    width: 100%;
-    border-radius: 15px;
+
 }
 .leag{
     position: relative;
     cursor: pointer;
+    height: 400px;
 }
 .leag .overlay{
     border-radius: 15px;
