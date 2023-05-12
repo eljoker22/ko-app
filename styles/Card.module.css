@@ -10,11 +10,7 @@
     border-radius: 15px;
 }
 .card .thumbnail img{
-    border-radius: 15px;
-    width: 100%;
-    max-height: 200px;
-    min-height: 180px;
-    object-fit: cover;
+    
 }
 .thumbnail{
     position: relative;
