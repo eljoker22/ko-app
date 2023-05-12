@@ -11,6 +11,11 @@ const nextConfig = {
   images: {
     domains: ['cdn.contentful.com', 'images.ctfassets.net'],
   },
+  headers: [
+    { key: "Access-Control-Allow-Credentials", value: "true" },
+    { key: "Access-Control-Allow-Origin", value: "*" },
+    // ...
+  ],
   async rewrites() {
     return [
       {
