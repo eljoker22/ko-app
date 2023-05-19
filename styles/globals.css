@@ -55,6 +55,55 @@ ul{
   animation: live 2s linear infinite;
   opacity: 0.0;
 }
+.vjs-matrix .vjs-menu-button-popup .vjs-menu .vjs-menu-content{
+  background-color: var(--box);
+}
+.vjs-matrix .vjs-menu li.vjs-selected, 
+.vjs-matrix .vjs-menu li.vjs-selected:focus, 
+.vjs-matrix .vjs-menu li.vjs-selected:hover, 
+.vjs-matrix .js-focus-visible .vjs-menu li.vjs-selected:hover{
+  background-color: var(--primary);
+  color: var(--color);
+}
+.vjs-matrix .vjs-menu li.vjs-menu-item:focus, .vjs-matrix .vjs-menu li.vjs-menu-item:hover,
+.vjs-matrix .js-focus-visible .vjs-menu li.vjs-menu-item:hover{
+  background-color: var(--back);
+}
+.vjs-matrix.vjs-theme-fantasy .vjs-play-progress, .vjs-matrix.vjs-theme-fantasy .vjs-play-progress:before{
+  background-color: var(--primary);
+}
+.video-js.vjs-matrix .vjs-control-bar{
+  background-color: transparent;
+}
+.video-js.vjs-matrix .vjs-load-progress{
+  background-color: var(--box);
+}
+.video-js.vjs-matrix .vjs-live-control{
+  align-items: center;
+  color: var(--color);
+  font-weight: 900;
+
+}
+.video-js.vjs-matrix .vjs-live-display{
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2px 10px;
+  padding-right: 20px;
+  border-radius: 5px;
+  position: relative;
+}
+.video-js.vjs-matrix .vjs-live-display::before{
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary);
+  
+}
+
 @keyframes live{
   0%{
     opacity: 0.2;

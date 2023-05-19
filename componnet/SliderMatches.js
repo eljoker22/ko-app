@@ -14,13 +14,14 @@ import { CostumImage } from './Images';
 
 
 function SliderMatches({matches}) {
+    const medScreen = useMediaQuery({ query:  '(max-width: 768px)'});
     const smallScreen = useMediaQuery({ query:  '(max-width: 450px)'});
     return(
         <div>
             <Swiper 
                 modules={[Navigation]}
                 spaceBetween={20}
-                slidesPerView={!smallScreen ? 3 : 1}
+                slidesPerView={smallScreen ? 1 : medScreen ? 2 : 3}
                 navigation
                 >
                     {matches.map((match) => (

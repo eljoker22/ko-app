@@ -19,7 +19,7 @@ function CardMatch({matches, logoLeague}) {
                     <motion.div layout>
                         <Swiper
                         spaceBetween={10}
-                        slidesPerView={!isSmallScreen ? 2 : 1}>
+                        slidesPerView={isSmallScreen ? 1 : 2}>
                             {matches.map((match) => (
                                 <SwiperSlide key={match.sys.id}>
                                     <motion.div

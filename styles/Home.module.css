@@ -76,6 +76,20 @@
   .small_banner img{
     min-height: 80%;
   }
+  .big_banner h2{
+    font-size: 25px;
+  }
+  .num{
+    width: 50px;
+    height: 50px;
+  }
+  .num strong{
+    font-size: 16px;
+  }
+  .info{
+    bottom: 15px;
+    right: 15px;
+  }
 }
 @media (max-width: 768px) {
   .container{
@@ -87,12 +101,18 @@
     right: 15px;
   }
   .num{
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
   .num strong{
-    font-size: 18px;
+    font-size: 15px;
   }
+}
+@media (max-width: 600px) {
+  .big_banner{
+    width: 100%;
+  }
+
 }
 @media (max-width: 560px) {
   .timer{

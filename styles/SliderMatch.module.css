@@ -65,4 +65,17 @@
     .free svg{
         font-size: 20px;
     }
+    .match{
+        position: relative;
+        height: 150px;
+    }
+}
+@media (max-width: 450px) {
+    .icon{
+        width: 40px;
+    }
+    .match{
+        position: relative;
+        height: 220px;
+    }
 }

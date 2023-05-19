@@ -24,6 +24,8 @@ function ChatMatch({match}) {
     const chatRef = useRef(null);
     const commentsRef = useRef(null);
         console.log(match.sys.id)
+
+        
     useEffect(() => {
         const q = query(collection(db, "comments"), where('matchId', '==', match?.sys.id));
         const unsubscribe = onSnapshot(q, (querySnapShot) => {

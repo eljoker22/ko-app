@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { useRef, useEffect, useState } from 'react';
 import videojs from 'video.js';
 import "video.js/dist/video-js.css";
+import '@videojs/themes/dist/fantasy/index.css';
+import '@videojs/themes/dist/forest/index.css';
+import '@videojs/themes/dist/city/index.css';
+
 import qualitySelector from "videojs-hls-quality-selector";
 import _ from "videojs-contrib-quality-levels";
 import ChatMatch from '../../../componnet/ChatMatch';
@@ -112,6 +116,9 @@ function Match({match, notAllow, type}) {
         nativeAudioTracks: true,
         nativeVideoTracks: true,
         nativeTextTracks: true
+    },
+    chromecast:{
+        appId:'APP-ID'
     }
     };
     useEffect(() => {
@@ -176,7 +183,7 @@ function Match({match, notAllow, type}) {
         <div className={classes.match}>
             <div className={classes.video_side}>
                 <div className={classes.video_player}>
-                    <video poster={`${matchData?.thumbnail.fields.file.url}`} ref={videoRef} className="video-js vjs-matrix vjs-big-play-centered" />
+                    <video poster={`${matchData?.thumbnail.fields.file.url}`} ref={videoRef} className="video-js vjs-theme-fantasy vjs-matrix vjs-big-play-centered" />
                     {notAllow && 
                         <div className={classes.banner_not_allow}>
                             <div>

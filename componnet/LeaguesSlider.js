@@ -13,6 +13,7 @@ import { CostumImage } from './Images';
 
 function LeaguesSlider({leagues}) {
     const isSmallScreen = useMediaQuery({ query: '(max-width: 586px)' });
+    const isSmallestScreen = useMediaQuery({ query: '(max-width: 450px)' });
     const swiper = useSwiper();
     const nextRef = useRef(null);
     const prevRef = useRef(null);
@@ -26,7 +27,7 @@ function LeaguesSlider({leagues}) {
             <Swiper 
                 modules={[Navigation, EffectFade]}
                 spaceBetween={10}
-                slidesPerView={isSmallScreen ? 3 : 4}
+                slidesPerView={isSmallestScreen ? 2  : isSmallScreen ? 3 : 4}
                 navigation
                 onSlideChange={() => console.log('slide change')}
                 onSwiper={(swiper) => console.log(swiper)}>
