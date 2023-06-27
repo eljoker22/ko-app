@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Button, ButtonFullWidth } from '../../componnet/Buttons';
 import CardMatch from '../../componnet/CardMatch';
 import { getLeague, getLeagues, getMatch, getMatches } from '../../datalayer/contentful/data';
+import Image from "next/image";
 
 
 function League({league, matches}) {
@@ -14,12 +15,19 @@ function League({league, matches}) {
     return(
         <div>
             <div className={classes.banners}>
+                
                 <div className={classes.cover}>
-                    <img src={`${leag.cover?.fields.file.url}`} />
+                    <Image  
+                        src={`${leag.cover.fields.file.url.replace('//', 'https://')}`}
+                        layout='fill'
+                        objectFit='cover'    
+                    />
                 </div>
+
                 <div className={classes.banner}>
                     <img src={`${leag.logo?.fields.file.url}`} />
                     <strong>{leag.name}</strong>
+
                     <div className={classes.match}>
                         <div className={classes.team}>
                             <img src={`${matchesL[0]?.fields.logo1?.fields.file.url}`} />
@@ -33,13 +41,16 @@ function League({league, matches}) {
                             <strong>{matchesL[0]?.fields.team2}</strong>
                         </div>
                     </div>
+
                     <ButtonFullWidth>
                         مشاهدة
                     </ButtonFullWidth>
                 </div>
-            </div>
+                
+                </div>
                 <h2 className={styles.section_title}>المباريات</h2>
-                <CardMatch matches={matchesL} logoLeague={`${leag.logo?.fields.file.url}`} />
+                
+                    <CardMatch matches={matchesL} logoLeague={`${leag.logo?.fields.file.url}`} />
         </div>
     )
 }

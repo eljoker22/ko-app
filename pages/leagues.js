@@ -2,6 +2,7 @@ import classes from '../styles/Leagues.module.css';
 import Link from 'next/link';
 import React from 'react'
 import { getLeagues } from '../datalayer/contentful/data';
+import { CostumImage } from '../componnet/Images';
 
 const leagues = ({leagues}) => {
     console.log(leagues)
@@ -12,11 +13,14 @@ const leagues = ({leagues}) => {
             {leagues?.map((leag) => (
                 <Link key={leag.id} href={`/league/${leag.fields.name.replaceAll(' ', '-')}`}>
                 <a>
-                    <div className={classes.leag}>
-                        <img src={`${leag.fields?.logo?.fields.file.url}`} />
-                    </div>
+                <div className={classes.leag}>
+                        <CostumImage 
+                            src={`${leag.fields?.logo?.fields.file.url.replace('//', 'https://')}`}
+                        />
+                </div>
                 </a>
                 </Link>
+                    
             ))}
         </div>
     </div>

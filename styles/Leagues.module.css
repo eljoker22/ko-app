@@ -11,15 +11,20 @@
     justify-content: center;
     align-items: center;
     height: 260px;
-    border-width: 2px;
-    border-color: 'transparent';
+    border: 2px solid transparent;
     transition: 0.2s ease-in-out;
 }
 .leag:hover{
-    border-color: var(--primary);
+    border: 2px solid red;
+
 }
 .leag img{
     width: 70%;
     height: 70%;
     object-fit: contain;
+}
+@media (max-width: 520px) {
+    .leagues{
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

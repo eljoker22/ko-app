@@ -41,18 +41,12 @@ function HeroSection({heroSection}) {
             <div className={classes.big_banner}>
                 {/* <CostumImage 
                     src={`${heroSection.fields.thumbnail.fields.file.url.replace('//', 'https://')}`}
-                    /> */}
-        <div className={classes.Image}>
-            <Image 
-                src={`${heroSection.fields.thumbnail.fields.file.url.replace('//', 'https://')}`}
-                width={0}
-                height={0}
-                sizes="100vw"
-                objectFit='cover'
-                style={{ width: '100%', height: '250px' , borderRadius: '15px' }} // optional
-                alt={'banner'}
-            />
-        </div>
+                /> */}
+                <Image  
+                    src={`${heroSection.fields.thumbnail.fields.file.url.replace('//', 'https://')}`}
+                    layout='fill'
+                    objectFit='cover'
+                    />
                 <div className={classes.info}>
                 <h2>{heroSection.fields.name}</h2>
                 <div className={classes.timer}>
@@ -87,17 +81,12 @@ function HeroSection({heroSection}) {
 
         {!isSmallScreen &&
                     <div className={classes.small_banner}>
-                    <div className={classes.Image}>
-                        <Image 
-                            src={`${heroSection.fields.thumbnail.fields.file.url.replace('//', 'https://')}`}
-                            width={0}
-                            height={0}
-                            sizes="100vw"
-                            objectFit='cover'
-                            style={{ width: '100%', height: 'auto' , borderRadius: '15px' }} // optional
-                            alt={'banner'}
+                    <Image  
+                        src={`${heroSection.fields.thumbnail.fields.file.url.replace('//', 'https://')}`}
+                        layout='fill'
+                        objectFit='cover'
+                        
                         />
-                        </div>
                     </div>}
         </div>
     )

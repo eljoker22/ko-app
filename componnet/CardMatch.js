@@ -8,14 +8,16 @@ import { useMediaQuery } from 'react-responsive'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import { CostumImage } from './Images';
+import { useRouter } from 'next/router';
+
 //import 'ds'
 function CardMatch({matches, logoLeague}) {
     const isMobScreen = useMediaQuery({ query: '(max-width: 768px)' });
     const isSmallScreen = useMediaQuery({ query: '(max-width: 412px)' });
-
+    const router = useRouter();
     return(
         <>
-            {isMobScreen ? 
+            {isMobScreen && router.route !== '/league/[slug]' ? 
                     <motion.div layout>
                         <Swiper
                         spaceBetween={10}

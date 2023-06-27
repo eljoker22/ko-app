@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Button, ButtonFullWidth } from '../componnet/Buttons';
 import SliderMatches from '../componnet/SliderMatches';
 import { getBoxMatch, getBoxMatches, getBoxPage } from '../datalayer/contentful/data';
-
+import {CostumImage} from '../componnet/Images';
 
 function UfcPage({page, matches}) {
     console.log(page);
@@ -15,7 +15,9 @@ function UfcPage({page, matches}) {
         <div>
             <div className={classes.banners}>
                 <div className={`${classes.cover} ${classes.fight}`}>
-                    <img src={`${box.thumbnail?.fields.file.url}`} />
+                    <CostumImage 
+                            src={`${box.thumbnail?.fields.file.url.replace('//', 'https://')}`}
+                        />
                 </div>
             </div>
 
