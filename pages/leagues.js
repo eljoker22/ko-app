@@ -14,7 +14,7 @@ const leagues = ({leagues}) => {
                 <Link key={leag.id} href={`/league/${leag.fields.name.replaceAll(' ', '-')}`}>
                 <a>
                 <div className={classes.leag}>
-                        <CostumImage 
+                        <img 
                             src={`${leag.fields?.logo?.fields.file.url.replace('//', 'https://')}`}
                         />
                 </div>
