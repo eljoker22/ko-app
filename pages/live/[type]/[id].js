@@ -69,11 +69,15 @@ export async function getServerSideProps(ctx) {
 
     const { user } = userData;
 
-    if (!match?.fields.free) { // if match not free check access user allow or not
-        
+    const today = new Date().getTime();
+    const renewTime = new Date(user.subscriptionEndDate).getTime();
+
+    if (!match?.fields.free && user.plan === 'free') { // if match not free check access user allow or not
+        notAllow = true;
+    }else if (user.plan !== 'free' && today > renewTime ) {
+        notAllow = true;
     }
 
-    
 
 
 
@@ -96,7 +100,7 @@ function Match({match, notAllow, type}) {
 
 
     const matchData = match.fields;
-    const contentUrl = match?.fields?.url;
+    const contentUrl = notAllow ? '' : match?.fields?.url;
     const videoJsOptions = {
         autoplay: true,
         controls: true,
@@ -184,7 +188,7 @@ function Match({match, notAllow, type}) {
             <div className={classes.video_side}>
                 <div className={classes.video_player}>
                     <video poster={`${matchData?.thumbnail.fields.file.url}`} ref={videoRef} className="video-js vjs-theme-fantasy vjs-matrix vjs-big-play-centered" />
-                    {notAllow && 
+                    {notAllow &&
                         <div className={classes.banner_not_allow}>
                             <div>
                             <h1>المباراة ليست مجانية يجب ترقية خطتك</h1>
@@ -196,7 +200,8 @@ function Match({match, notAllow, type}) {
                                 </a>
                             </Link>
                             </div>
-                        </div>}
+                        </div>
+                        }
                 </div>
                 {!smallScreen ? 
                     <div className={classes.cont_info}>
