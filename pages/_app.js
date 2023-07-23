@@ -7,8 +7,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
     <Layout>
-      <Script strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-7T0SQ669WG"></Script>
-      <Script strategy='afterInteractive'>
+      <Script id="ga-script" strategy='afterInteractive' src="https://www.googletagmanager.com/gtag/js?id=G-7T0SQ669WG"></Script>
+      <Script id="ga1-script" strategy='afterInteractive'>
         {
           `window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
