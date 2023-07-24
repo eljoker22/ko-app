@@ -260,8 +260,8 @@ function Match({match, notAllow, type}) {
                     : 
                     <div className={classes.cont_info}> 
                         <div className={classes.league}>
-                            <img src={`${match.league.fields.logo.fields.file.url}`} />
-                            <strong>{match.league.fields.name}</strong>
+                            <img src={`${matchData.league.fields.logo.fields.file.url}`} />
+                            <strong>{matchData.league.fields.name}</strong>
                         </div>
                         <div className={classes.info_match}>
                             <div className={classes.timer_cont}>
