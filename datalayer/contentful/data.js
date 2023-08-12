@@ -120,3 +120,12 @@ export const getEvents = async () => {
 
     return events;
 }
+
+export const getAds = async () => {
+    const res = await client.getEntries({
+        content_type: 'ads',
+    });
+    const ads = res.items;
+
+    return ads;
+}

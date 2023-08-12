@@ -1,5 +1,4 @@
 import classes from '../styles/Login.module.css';
-import Img from '../assest/live.png';
 import {InputForm, InputPass} from '../componnet/Inputs';
 import {ButtonForm} from '../componnet/Buttons';
 import { AlertError, AlertSuccess } from '../componnet/Alerts';
@@ -76,7 +75,7 @@ function ForgetPassword() {
                 </Link>
             </div>
             <div className={classes.form_container}>
-                <img src={Img.src}  alt="live" />
+                <img src='/ko logo.png' alt="live" />
                 <div className={classes.form}>
                     {err?.length > 0 && <AlertError errMsg={err} />}
                     {success?.length > 0 && <AlertSuccess msg={success} />}

@@ -13,6 +13,9 @@
     text-align: center;
     margin: 0 20px;
 }
+.form_container > img{
+    width: 250px;
+}
 .form{
     margin-top: 30px;
     width: 400px;

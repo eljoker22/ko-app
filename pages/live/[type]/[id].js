@@ -16,7 +16,7 @@ import {Button} from '../../../componnet/Buttons';
 import {GiAbstract068} from 'react-icons/gi';
 import { useSelector } from 'react-redux';
 import {useMediaQuery} from 'react-responsive';
-import { getBoxMatch, getMatch, getUfcMatch } from '../../../datalayer/contentful/data';
+import { getAds, getBoxMatch, getMatch, getUfcMatch } from '../../../datalayer/contentful/data';
 
 export async function getServerSideProps(ctx) {
     const { type, id } = ctx.query;
@@ -65,7 +65,7 @@ export async function getServerSideProps(ctx) {
         }
         
         let notAllow = false;
-
+        let adsAllow = false;
 
     const { user } = userData;
 
@@ -78,17 +78,21 @@ export async function getServerSideProps(ctx) {
         notAllow = true;
     }
 
-
-
+        if (match.fields.free && user.plan === 'free') {
+            adsAllow = true;
+        }
+            
+        // get ads data
+        const resAds = await getAds();
 
 
     return{
-        props: {match, notAllow: notAllow, type: type}
+        props: {match, ads: resAds, notAllow: notAllow, adsAllow: adsAllow,type: type}
     }
 }
 
 
-function Match({match, notAllow, type}) {
+function Match({match, notAllow, type, ads, adsAllow}) {
     //const u = useSelector(state => state.user);
 
     const videoRef = useRef(null);
@@ -97,12 +101,12 @@ function Match({match, notAllow, type}) {
     const [timer, setTimer] = useState(null);
     const [matchStatus, setMatchStatus] = useState('wait');
     const smallScreen = useMediaQuery({ query: '(max-width: 480px)' });
-
-
+    const [showAd, setShowAd] = useState(false);
+    const [ad, setAd] = useState('');
     const matchData = match.fields;
     const contentUrl = notAllow ? '' : match?.fields?.url;
     const videoJsOptions = {
-        autoplay: true,
+        autoplay: false,
         controls: true,
         height: 550,
         width: 900,
@@ -176,18 +180,51 @@ function Match({match, notAllow, type}) {
             setMatchStatus('end');
         }
     }
+    // ads handler
+    const showAds = () =>{
+
+        if (showAd === false) {
+            const max = ads?.length; 
+            const randomAdsIndex = Math.floor(Math.random() * (max - 0))
+            console.log(randomAdsIndex);
+            setAd(ads[randomAdsIndex].fields.video);
+            setShowAd(true);
+            playerRef.current.exitFullscreen()
+            playerRef.current.volume(0.0);
+            setTimeout(() => {
+                setShowAd(false)
+                playerRef.current.volume(0.9);
+            }, 25000);
+        }
+    }
 
     useEffect(() => {
         setInterval(updateClock, 1000);
+        adsAllow && setInterval(showAds, 60000);
+
     }, [])
 
-    console.log(match);
+    console.log(ads);
+
     
     return(
         <div className={classes.match}>
+
             <div className={classes.video_side}>
                 <div className={classes.video_player}>
+
                     <video poster={`${matchData?.thumbnail.fields.file.url}`} ref={videoRef} className="video-js vjs-theme-fantasy vjs-matrix vjs-big-play-centered" />
+                    {showAd && 
+                        <div className={classes.ads}>
+                        <div className={classes.ad}>
+                            <video className={classes.vid}  autoplay="autoplay">
+                                <source src={ad} type="video/mp4" />
+                            </video>
+                        </div>
+                            <div className={classes.progressBar}>
+                                
+                            </div>
+                        </div>}
                     {notAllow &&
                         <div className={classes.banner_not_allow}>
                             <div>

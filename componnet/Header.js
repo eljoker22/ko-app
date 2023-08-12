@@ -15,7 +15,7 @@ function Header({openMenu, setOpenMenu}) {
     }, [router.pathname])
     return(
         <header className={`${classes.header} ${openMenu ? classes.active : ''}`}>
-            <h1 style={{color: 'var(--primary)'}}>KORA SPORTS</h1>
+            <img className={classes.logo} src='/ko logo.png' />
             <ul>
                 <Link href="/">
                     <a><li>

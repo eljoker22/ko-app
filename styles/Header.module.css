@@ -131,6 +131,20 @@
     z-index: 999;
     transition: 0.3s ease-in-out;
 }
+.logo{
+    width: 200px;
+    margin: 20px 20px;
+    user-select: none;
+}
+.icon_ko{
+    width: 50px;
+}
+
+@media (max-width: 1060px) {
+    .logo{
+        width: 80%;
+    }
+}
 @media (max-width: 768px) {
     .header{
         right: -100%;
@@ -150,6 +164,12 @@
         opacity: 1;
         visibility: visible;
     }
+    .logo{
+        width: 200px;
+    }
+    .icon_ko{
+        width: 40px;
+    }
 }
 @media (max-width: 450px) {
     .user > svg{
@@ -159,6 +179,12 @@
     .user  button{
         font-size: 15px;
         padding: 8px 12px;
+    }
+    
+}
+@media (max-width: 350px) {
+    .logo{
+        width: 80%;
     }
     
 }

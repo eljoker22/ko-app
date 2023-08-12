@@ -1,7 +1,45 @@
 .match{
     display: flex;
     justify-content: space-between;
+    position: relative;
 }
+/* ads */
+.ads{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+.ad{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.vid{
+    width: 100%;
+}
+.progressBar{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20px;
+    background: var(--primary);
+    animation: progress 25000ms ease-in 1;
+}
+
+@keyframes progress {
+    from {
+        right: 100%;
+    }
+    to{
+        right: 0;
+    }
+}
+/*====*/
 .video_side{
     width: 75%;
 }

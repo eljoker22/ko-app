@@ -11,7 +11,7 @@ function DownloadApp() {
             />
             </div>
             <div className={classes.content}>
-                <h2>Ko Sports</h2>
+                <img src='/ko logo.png' />
                 <p>موطن الرياضات العالمية شاهد اهم دوريات كرة القدم وبطولات الملاكمة وقتالات ufc</p>
                 <Button type={'button'}>
                     تحميل التطبيق

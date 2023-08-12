@@ -1,5 +1,4 @@
 import classes from '../styles/Login.module.css';
-import Img from '../assest/live.png';
 import {InputForm, InputPass} from '../componnet/Inputs';
 import {ButtonForm} from '../componnet/Buttons';
 import { AlertError } from '../componnet/Alerts';
@@ -98,7 +97,7 @@ function Login() {
                 </Link>
             </div>
             <div className={classes.form_container}>
-                <img src={Img.src}  alt="live" />
+                <img src='/ko logo.png' alt="live" />
                 <div className={classes.form}>
                     <form onSubmit={handleLogin}>
                         {err?.length > 0 && <AlertError errMsg={err} />}
