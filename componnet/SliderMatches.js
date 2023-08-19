@@ -39,7 +39,7 @@ function SliderMatches({matches}) {
                                     <div className={classes.free}>
                                         <FaLock />
                                     </div>}
-                                    <img className={classes.icon} src={playIcon.src} />
+                                    <img className={classes.icon} src={playIcon.src} alt='icon' />
                                     <CostumImage 
                                         src={`${match.fields?.thumbnail?.fields.file.url.replace('//', 'https://')}`}
                                     />

@@ -63,15 +63,15 @@ function CardMatch({matches, logoLeague}) {
                                         <div>
                                             <strong className={classes.title}>{match.fields.title}</strong>
                                             <div className={classes.logos}>
-                                                <img src={`${match.fields?.logo1?.fields.file.url}`} />
-                                                <img src={`/vs.png`} />
-                                                <img src={`${match.fields?.logo2?.fields.file.url}`} />
+                                                <img src={`${match.fields?.logo1?.fields.file.url}`} alt='logo' />
+                                                <img src={`/vs.png`} alt='vs' />
+                                                <img src={`${match.fields?.logo2?.fields.file.url}`} alt='logo' />
                                             </div>
                                         </div>
                                         
                                         <div className={classes.bottom_card}>
                                             <div className={classes.league_logo}>
-                                            <img src={match.fields.league ? `${match.fields?.league.fields.logo.fields.file.url}` : logoLeague} />
+                                            <img src={match.fields.league ? `${match.fields?.league.fields.logo.fields.file.url}` : logoLeague} alt='league' />
                                             </div>
                                             <Link href={`/live/${match.sys.id}`}>
                                                 <a>

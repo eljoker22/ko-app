@@ -25,19 +25,19 @@ function League({league, matches}) {
                 </div>
 
                 <div className={classes.banner}>
-                    <img src={`${leag.logo?.fields.file.url}`} />
+                    <img src={`${leag.logo?.fields.file.url}`} alt='league' />
                     <strong>{leag.name}</strong>
 
                     <div className={classes.match}>
                         <div className={classes.team}>
-                            <img src={`${matchesL[0]?.fields.logo1?.fields.file.url}`} />
+                            <img src={`${matchesL[0]?.fields.logo1?.fields.file.url}`} alt='logo' />
                             <strong>{matchesL[0]?.fields.team1}</strong>
                         </div>
                         <div className={classes.time}>
                             {moment(matchesL[0]?.fields.time).format('h:mm')}
                         </div>
                         <div className={classes.team}>
-                            <img src={`${matchesL[0]?.fields.logo2?.fields.file.url}`} />
+                            <img src={`${matchesL[0]?.fields.logo2?.fields.file.url}`} alt='logo' />
                             <strong>{matchesL[0]?.fields.team2}</strong>
                         </div>
                     </div>

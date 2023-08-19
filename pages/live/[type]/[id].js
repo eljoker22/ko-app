@@ -244,7 +244,7 @@ function Match({match, notAllow, type, ads, adsAllow}) {
                     <div className={classes.cont_info}>
                         {type === 'football-live' ?
                         <div className={classes.league}>
-                            <img src={`${matchData.league.fields.logo.fields.file.url}`} />
+                            <img src={`${matchData.league.fields.logo.fields.file.url}`} alt='logo' />
                             <strong>
                                 {matchData.league.fields.name}
                             </strong>
@@ -252,7 +252,7 @@ function Match({match, notAllow, type, ads, adsAllow}) {
                         :''}
                         <div className={classes.info_match}>
                             <div className={classes.team}>
-                                {type === 'football-live' ? <img src={`${matchData.logo1.fields.file.url}`} /> : ''}
+                                {type === 'football-live' ? <img src={`${matchData.logo1.fields.file.url}`} alt='logo' /> : ''}
                                 <strong>{type === 'football-live' ?  matchData.team1 : matchData?.fighter1}</strong>
                             </div>
                                 {type === 'football-live' ? 
@@ -289,7 +289,7 @@ function Match({match, notAllow, type, ads, adsAllow}) {
                                     <img src='/vs.png' />
                                 }
                             <div className={classes.team}>
-                            {type === 'football-live' ? <img src={`${matchData.logo2.fields.file.url}`} /> : ''}
+                            {type === 'football-live' ? <img src={`${matchData.logo2.fields.file.url}`} alt='logo' /> : ''}
                                 <strong>{type === 'football-live' ?  matchData.team2 : matchData?.fighter2}</strong>
                             </div>
                         </div>
@@ -297,7 +297,7 @@ function Match({match, notAllow, type, ads, adsAllow}) {
                     : 
                     <div className={classes.cont_info}> 
                         <div className={classes.league}>
-                            <img src={`${matchData.league.fields.logo.fields.file.url}`} />
+                            <img src={`${matchData.league.fields.logo.fields.file.url}`} alt='logo' />
                             <strong>{matchData.league.fields.name}</strong>
                         </div>
                         <div className={classes.info_match}>
@@ -332,14 +332,14 @@ function Match({match, notAllow, type, ads, adsAllow}) {
                         </div>
                             <div className={classes.cont_team}>
                                 <div className={classes.team}>
-                                        <img src={`${matchData.logo1.fields.file.url}`} />
+                                        <img src={`${matchData.logo1.fields.file.url}`} alt='logo' />
                                         <strong>{matchData.team1}</strong>
                                 </div>
                                 <div>
                                     <GiAbstract068 />
                                 </div>
                                 <div className={classes.team}>
-                                    <img src={`${matchData.logo2.fields.file.url}`} />
+                                    <img src={`${matchData.logo2.fields.file.url}`} alt='logo' />
                                     <strong>{matchData.team2}</strong>
                                 </div>
                             </div>

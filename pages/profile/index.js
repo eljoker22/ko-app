@@ -20,7 +20,7 @@ export async function getServerSideProps(ctx) {
             }
         }
     }
-    
+
 
     const url = process.env.nodeAppApi;
     const res = await fetch(`${url}/v1/auth/user`, {
@@ -88,7 +88,7 @@ function Profile({user, plan}) {
                 <div>
                     <h2>حسابى</h2>
                     <div className={classes.avatar}>
-                        <img src={`avatars/${user.avatar}`} />
+                        <img src={`avatars/${user.avatar}`} alt='logo' />
                         <strong>{user.username}</strong>
                     </div>
                     <div className={classes.info}>
@@ -111,7 +111,7 @@ function Profile({user, plan}) {
                     <h2>معلومات اشتراكك</h2>
                     <div className={classes.plan_box}>
                         <div className={classes.head_plan}>
-                            <img src="/play.png" />
+                            <img src="/play.png" alt='logo' />
                             <strong>{plan[0]?.fields.name}</strong>
                         </div>
                         <div className={classes.item_plan}>

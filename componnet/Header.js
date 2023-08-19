@@ -15,7 +15,7 @@ function Header({openMenu, setOpenMenu}) {
     }, [router.pathname])
     return(
         <header className={`${classes.header} ${openMenu ? classes.active : ''}`}>
-            <img className={classes.logo} src='/ko logo.png' />
+            <img className={classes.logo} src='/ko logo.png' alt='ko sports' />
             <ul>
                 <Link href="/">
                     <a><li>

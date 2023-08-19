@@ -100,7 +100,7 @@ function ChatMatch({match}) {
                 {comments?.comments.map((c) => (
                     <div key={c.time}>
                         <div className={classes.comment}>
-                        <img src={c.avatar ? `/avatars/${c.avatar}` : '/user.png'} />
+                        <img src={c.avatar ? `/avatars/${c.avatar}` : '/user.png'} alt='avatar' />
                         <div>
                             <strong>{c.username}</strong>
                             <p>{c.comment.replaceAll('undefined', '')}</p>

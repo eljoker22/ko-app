@@ -16,6 +16,7 @@ const leagues = ({leagues}) => {
                 <div className={classes.leag}>
                         <img 
                             src={`${leag.fields?.logo?.fields.file.url.replace('//', 'https://')}`}
+                            alt='ko'
                         />
                 </div>
                 </a>

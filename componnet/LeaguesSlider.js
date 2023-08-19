@@ -38,7 +38,7 @@ function LeaguesSlider({leagues}) {
                                 <a>
                                     <div className={classes.leag}>
                                         <div className={classes.overlay}>
-                                        <img  src={`${leag.fields?.logo?.fields.file.url}`} />
+                                        <img  src={`${leag.fields?.logo?.fields.file.url}`} alt='leag' />
                                         </div>
                                         <CostumImage  
                                             src={`${leag.fields?.thumbnail?.fields.file.url.replace('//', 'https://')}`}

@@ -52,7 +52,7 @@ function TopHeader({setOpenMenu, openMenu}) {
             <div onClick={() => setOpenMenu(false)} className={`${classes.overlay} ${openMenu ? classes.active : ''}`}></div>
             <div className={classes.side_right}>
                 <RiMenu4Fill className={classes.bars} onClick={() => setOpenMenu(true)} />
-                <img className={classes.icon_ko} src='/icon1.png' />
+                <img className={classes.icon_ko} src='/icon1.png' alt='ko' />
             </div>
             
             <div className={classes.user}>

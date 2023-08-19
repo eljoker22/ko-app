@@ -73,7 +73,7 @@ function AvatarSelect() {
                 {avatars.map((avatar) => (
                     <div key={avatar} className={avatarSelect === avatar ? classes.active : ''} onClick={() => setAvatarSelect(avatar)}>
                         <BsFillCheckCircleFill />
-                        <img src={`/avatars/${avatar}`} />
+                        <img src={`/avatars/${avatar}`} alt='user' />
                     </div>
                 ))}
                 </div>
