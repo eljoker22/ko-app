@@ -20,7 +20,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://ko-sports-users.onrender.com/:path*',
+        destination: 'https://enthusiastic-pumps-lamb.cyclic.app/:path*',
       },
     ]
   },
