@@ -17,6 +17,7 @@ function DownloadApp() {
                     تحميل التطبيق
                 </Button>
             </div>
+            
         </div>
     )
 }
