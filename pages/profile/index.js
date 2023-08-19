@@ -20,6 +20,7 @@ export async function getServerSideProps(ctx) {
             }
         }
     }
+    
 
     const url = process.env.nodeAppApi;
     const res = await fetch(`${url}/v1/auth/user`, {
