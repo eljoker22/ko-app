@@ -97,7 +97,7 @@ function Login() {
                 </Link>
             </div>
             <div className={classes.form_container}>
-                <img src='/ko logo.png' alt="live" />
+                <img src='/ko-logo.png' alt="live" />
                 <div className={classes.form}>
                     <form onSubmit={handleLogin}>
                         {err?.length > 0 && <AlertError errMsg={err} />}

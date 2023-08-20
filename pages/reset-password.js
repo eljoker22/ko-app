@@ -81,7 +81,7 @@ function ResetPassword() {
                 </Link>
             </div>
             <div className={classes.form_container}>
-                <img src='/ko logo.png' alt="live" />
+                <img src='/ko-logo.png' alt="live" />
                 <div className={classes.form}>
                     {err?.length > 0 && <AlertError errMsg={err} />}
                     {success?.length > 0 && <AlertSuccess msg={success} />}
