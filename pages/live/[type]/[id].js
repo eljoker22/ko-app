@@ -217,7 +217,7 @@ function Match({match, notAllow, type, ads, adsAllow}) {
                     {showAd && 
                         <div className={classes.ads}>
                         <div className={classes.ad}>
-                            <video className={classes.vid}  autoplay="autoplay">
+                            <video className={classes.vid} autoPlay>
                                 <source src={ad} type="video/mp4" />
                             </video>
                         </div>
